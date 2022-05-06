@@ -51,6 +51,7 @@ services:
       VITE_PUBLIC_API_URL: "http://localhost:3333/api/v1"
     ports:
       - "0.0.0.0:3334:3000"
+      - "0.0.0.0:3344:3344"
     volumes:
       - ./apps:/app
       - node-cache:/root/.cache
@@ -72,6 +73,7 @@ services:
       VITE_PUBLIC_API_URL: "http://localhost:3333/api/v1"
     ports:
       - "0.0.0.0:3335:3000"
+      - "0.0.0.0:3345:3345"
     volumes:
       - ./apps:/app
       - node-cache:/root/.cache

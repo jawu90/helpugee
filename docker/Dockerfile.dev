@@ -8,7 +8,7 @@ COPY docker/entrypoint.sh /docker/
 
 ARG APP_NAME
 WORKDIR /usr/src/cache/${APP_NAME}
-# COPY apps/${APP_NAME}/pnpm-lock.yaml .
+COPY apps/${APP_NAME}/pnpm-lock.yaml .
 COPY apps/${APP_NAME}/package.json .
 RUN pnpm install
 
