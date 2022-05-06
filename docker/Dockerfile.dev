@@ -1,0 +1,18 @@
+ARG BASE_IMAGE=node:18
+
+FROM ${BASE_IMAGE} AS runner
+RUN apt-get update && apt-get install rsync -y
+RUN corepack enable
+RUN corepack prepare pnpm@7.0.0-rc.8 --activate
+COPY docker/entrypoint.sh /docker/
+
+ARG APP_NAME
+WORKDIR /usr/src/cache/${APP_NAME}
+# COPY apps/${APP_NAME}/pnpm-lock.yaml .
+COPY apps/${APP_NAME}/package.json .
+RUN pnpm install
+
+WORKDIR /app/${APP_NAME}
+COPY apps/${APP_NAME}/ .
+
+CMD [ "pnpm", "run", "dev" ]

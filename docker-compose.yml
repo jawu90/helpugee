@@ -1,0 +1,78 @@
+volumes:
+  dev-database:
+  node-cache:
+  pnpm-cache:
+
+services:
+  helpugee-db:
+    container_name: helpugee-db
+    image: postgis/postgis
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+    volumes:
+      - dev-database:/var/lib/postgresql/data
+
+  helpugee-backend:
+    build:
+      args:
+        APP_NAME: "backend"
+      context: .
+      dockerfile: ./docker/Dockerfile.dev
+      target: runner
+    working_dir: "/app/backend"
+    container_name: helpugee-backend
+    entrypoint: /docker/entrypoint.sh
+    command: "npm run dev"
+    environment:
+      APP_NAME: "backend"
+    ports:
+      - "0.0.0.0:3333:3333"
+    volumes:
+      - ./apps:/app
+      - node-cache:/root/.cache
+      - pnpm-cache:/root/.pnpm-store
+
+  helpugee-webadmin:
+    build:
+      args:
+        APP_NAME: "webadmin"
+      context: .
+      dockerfile: ./docker/Dockerfile.dev
+      target: runner
+    working_dir: "/app/webadmin"
+    container_name: helpugee-webadmin
+    entrypoint: /docker/entrypoint.sh
+    command: "npm run dev"
+    environment:
+      APP_NAME: "webadmin"
+      VITE_PUBLIC_API_URL: "http://localhost:4444/api"
+    ports:
+      - "0.0.0.0:3334:3000"
+    volumes:
+      - ./apps:/app
+      - node-cache:/root/.cache
+      - pnpm-cache:/root/.pnpm-store
+
+  helpugee-webapp:
+    build:
+      args:
+        APP_NAME: "webapp"
+      context: .
+      dockerfile: ./docker/Dockerfile.dev
+      target: runner
+    working_dir: "/app/webapp"
+    container_name: helpugee-webapp
+    entrypoint: /docker/entrypoint.sh
+    command: "npm run dev"
+    environment:
+      APP_NAME: "webapp"
+      VITE_PUBLIC_API_URL: "http://localhost:4444/api"
+    ports:
+      - "0.0.0.0:3335:3000"
+    volumes:
+      - ./apps:/app
+      - node-cache:/root/.cache
+      - pnpm-cache:/root/.pnpm-store
