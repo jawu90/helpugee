@@ -30,7 +30,6 @@ const router = express.Router();
 
 // register middleware for route protection
 router.use('/', authenticationService.verifyAccess);
-router.use('/', authenticationService.authorize([Role.ADMINISTRATOR], true));
 
 /**
  * @api {get} /user get users

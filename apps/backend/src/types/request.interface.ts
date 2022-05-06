@@ -7,7 +7,5 @@ declare module 'express-serve-static-core' {
         id?: number,
         username?: string,
         role?: Role,
-        sectionId?: number,
-        sectionSupervisor?: number
     }
 }
