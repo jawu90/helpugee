@@ -13,6 +13,14 @@ const config = {
 		// Override http methods in the Todo forms
 		methodOverride: {
 			allowed: ['PATCH', 'DELETE']
+		},
+		vite: {
+			server: {
+				hmr: {
+					host: '0.0.0.0',
+					port: '3345'
+				}
+			}
 		}
 	}
 };
