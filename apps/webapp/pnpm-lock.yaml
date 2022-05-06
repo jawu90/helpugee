@@ -1,14 +1,14 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@fontsource/archivo': ^4.5.7
   '@fontsource/fira-mono': ^4.5.0
-  '@lukeed/uuid': ^2.0.0
+  '@fontsource/gotu': ^4.5.6
   '@sveltejs/adapter-auto': next
   '@sveltejs/kit': next
   '@types/cookie': ^0.4.1
   '@typescript-eslint/eslint-plugin': ^5.10.1
   '@typescript-eslint/parser': ^5.10.1
-  cookie: ^0.4.1
   eslint: ^8.12.0
   eslint-config-prettier: ^8.3.0
   eslint-plugin-svelte3: ^4.0.0
@@ -21,9 +21,9 @@ specifiers:
   typescript: ~4.6.2
 
 dependencies:
+  '@fontsource/archivo': 4.5.7
   '@fontsource/fira-mono': 4.5.8
-  '@lukeed/uuid': 2.0.0
-  cookie: 0.4.2
+  '@fontsource/gotu': 4.5.6
 
 devDependencies:
   '@sveltejs/adapter-auto': 1.0.0-next.40
@@ -61,8 +61,16 @@ packages:
       - supports-color
     dev: true
 
+  /@fontsource/archivo/4.5.7:
+    resolution: {integrity: sha512-OTte/P/6rCVzW917JR0CvgVohh/xGkWIks/TZRoyg7vnEWi/enwOfXxJOj4uJRWpORft9kwF6WJXBmSVceC0bw==}
+    dev: false
+
   /@fontsource/fira-mono/4.5.8:
     resolution: {integrity: sha512-sFuSPB/Km8B1fy3CH0NqO5Nb4GmVMzp3XFaw6MwK293xhm3OnB68QJawwTTjLewcrS78wOTAhTUB058qxurJoQ==}
+    dev: false
+
+  /@fontsource/gotu/4.5.6:
+    resolution: {integrity: sha512-SqI/kTJq8rf74HWx8wyN7so+bkMQHpb5/bRKD5XZxKLjGI1hXrmocDVAuscZPx91CLRveo8p5oJINwNh7swtYg==}
     dev: false
 
   /@humanwhocodes/config-array/0.9.5:
@@ -83,18 +91,6 @@ packages:
   /@iarna/toml/2.2.5:
     resolution: {integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==}
     dev: true
-
-  /@lukeed/csprng/1.0.1:
-    resolution: {integrity: sha512-uSvJdwQU5nK+Vdf6zxcWAY2A8r7uqe+gePwLWzJ+fsQehq18pc0I2hJKwypZ2aLM90+Er9u1xn4iLJPZ+xlL4g==}
-    engines: {node: '>=8'}
-    dev: false
-
-  /@lukeed/uuid/2.0.0:
-    resolution: {integrity: sha512-dUz8OmYvlY5A9wXaroHIMSPASpSYRLCqbPvxGSyHguhtTQIy24lC+EGxQlwv71AhRCO55WOtgwhzQLpw27JaJQ==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@lukeed/csprng': 1.0.1
-    dev: false
 
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -465,11 +461,6 @@ packages:
   /concat-map/0.0.1:
     resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
     dev: true
-
-  /cookie/0.4.2:
-    resolution: {integrity: sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA==}
-    engines: {node: '>= 0.6'}
-    dev: false
 
   /cross-spawn/7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
