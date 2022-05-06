@@ -22,7 +22,6 @@ import userService from '../../services/user.service';
 import userRepository from '../../repositories/user.repository';
 import authenticationService from "../../services/authentication.service";
 import utilsService from "../../services/utils.service";
-import Role from "../../models/role.enum";
 import TranslatableError from "../../types/translatable.error";
 
 // create router object
