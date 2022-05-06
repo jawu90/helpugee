@@ -1,12 +1,68 @@
 {
-  "name": "backend",
+  "name": "flood-management-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Backend API for the flood management tool of the Passau fire department.",
+  "main": "dist/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "tsc & node .",
+    "dev": "tsc -w & nodemon .",
+    "test": "jest",
+    "jsdoc": "jsdoc -c ./jsdoc.json",
+    "apidoc": "apidoc -c ./apidoc.json -i ./src/api -o ./apidoc/"
   },
-  "keywords": [],
-  "author": "",
-  "packageManager": "pnpm@7.0.0"
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.infosun.fim.uni-passau.de/aspd/2021/team1"
+  },
+  "keywords": [
+    "API",
+    "flood",
+    "fire",
+    "department",
+    "Passau"
+  ],
+  "author": "Team 1",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "esdoc": "^1.1.0",
+    "esdoc-standard-plugin": "^1.0.0",
+    "express": "^4.17.1",
+    "express-http-context": "^1.2.4",
+    "express-jwt": "^6.1.0",
+    "express-winston": "^4.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "node-pre-gyp": "^0.17.0",
+    "pg": "^8.7.1",
+    "pg-promise": "^10.11.1",
+    "typescript": "^4.5.2",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/express-jwt": "^6.0.2",
+    "@types/jest": "^27.0.2",
+    "@types/jsonwebtoken": "^8.5.6",
+    "@types/node": "^16.11.7",
+    "@types/pg": "^8.6.1",
+    "@types/supertest": "^2.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "better-docs": "^2.7.1",
+    "eslint": "^8.2.0",
+    "jest": "^27.4.5",
+    "jsdoc": "^3.6.10",
+    "node": "^17.4.0",
+    "nodemon": "^2.0.15",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "supertest": "^6.1.6",
+    "ts-jest": "^27.0.7",
+    "typedoc": "^0.22.11"
+  }
 }

@@ -1,0 +1,45 @@
+{
+    "error": {
+        "service": {
+            "user": {
+                "is_not_valid": "Not a valid user!",
+                "username_is_not_body_property": "Not a valid body property or value for username!",
+                "password_is_not_body_property": "Not a valid body property or value for password!"
+            }
+        },
+        "repository": {
+            "user": {
+                "username_is_empty": "Username can not be empty!",
+                "password_is_empty": "Password can not be empty!",
+                "is_not_valid": "Object is not a valid database entry for user!",
+                "last_admin_removed": "User which is the last admin cannot be deleted!"
+            }
+        },
+        "db": {
+            "user": {
+                "id_not_present_unique": "Id of user is not present or unique!",
+                "username_not_present_unique": "Name of user is not present or unique!",
+                "id_not_found": "User with id=${id} does not exist!",
+                "duplicate_username": "User with username=${username} already exist!",
+                "username_not_found": "No user with username=${username} found!",
+                "username_is_not_unique": "Username is not unique!"
+            }
+        },
+        "authentication": {
+            "wrong_credentials": "Wrong username or password!",
+            "user_not_active": "User is not active!",
+            "section_not_active_and_not_admin": "Section is not active and the user is not an admin",
+            "logout": {
+                "user_not_active": "User is not active!",
+                "user_info_changed": "JWT and user contain not the same information. User information has changed!",
+                "missing_token": "Missing token!",
+                "undefined_payload": "Payload is undefined!",
+                "section_not_active_and_not_admin": "Section is not active and the user is not an admin",
+                "user_not_present": "User does not exist!"
+            }
+        },
+        "unauthorized": "Unauthorized!",
+        "unknown": "Unknown error!",
+        "not_implemented": "Not implemented!"
+    }
+}
