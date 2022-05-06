@@ -19,7 +19,6 @@ import IDatabase from '../databases/db.interface';
 import postgresql from "../databases/postgresql.db";
 import userService from "../services/user.service";
 import TranslatableError from "../types/translatable.error";
-import Role from "../models/role.enum";
 import {randomUUID} from "crypto";
 
 /**
@@ -88,9 +87,7 @@ export class UserRepository {
         const newUser = Object.assign({}, user);
         this.checkConstraints(newUser);
         await this.database.insertUser(
-            newUser.username, newUser.password, newUser.forename, newUser.surname,
-            newUser.phone, newUser.radioCallName, newUser.section,
-            new Date(), contextWrapper.getUsername()
+            newUser.username, newUser.password, newUser.forename, newUser.surname, newUser.email
         );
     }
 
@@ -106,11 +103,8 @@ export class UserRepository {
         newUser.password = oldUser.password;
         newUser.isDeleted = oldUser.isDeleted;
         this.checkConstraints(newUser);
-        await this.checkAdminRemainsConstraint(oldUser, newUser);
         await this.database.updateUser(
-            newUser.id, newUser.username, newUser.password, newUser.forename, newUser.surname,
-            newUser.phone, newUser.radioCallName, newUser.section, newUser.isActive,
-            new Date(), contextWrapper.getUsername(), newUser.isDeleted
+            newUser.id, newUser.username, newUser.password, newUser.forename, newUser.surname, newUser.email, newUser.isActive
         );
     }
 
@@ -126,8 +120,7 @@ export class UserRepository {
         this.checkConstraints(oldUser);
         await this.database.updateUser(
             oldUser.id, oldUser.username, oldUser.password, oldUser.forename, oldUser.surname,
-            oldUser.phone, oldUser.radioCallName, oldUser.section, oldUser.isActive,
-            new Date(), contextWrapper.getUsername(), oldUser.isDeleted
+            oldUser.email, oldUser.isActive
         );
     }
 
@@ -139,46 +132,11 @@ export class UserRepository {
     public async remove(id: number): Promise<void> {
         const user = await this.database.selectUserById(id);
         this.checkDatatype(user);
-        await this.checkAdminRemoveConstraint(user);
         user.isDeleted = true;
         this.suppressUserDetails(user);
         await this.database.updateUser(
-            user.id, user.username, user.password, user.forename, user.surname,
-            user.phone, user.radioCallName, user.section, user.isActive,
-            new Date(), contextWrapper.getUsername(), user.isDeleted
+            user.id, user.username, user.password, user.forename, user.surname, user.email, user.isActive
         );
-    }
-
-    /**
-     * Finds for a given sectionId all the users which are part of this section
-     * @param sectionId Id from section
-     */
-    public async findUsersBySection(sectionId: number): Promise<IUser[]> {
-        const users = await this.database.selectUsersBySection(sectionId);
-        return users ? users.map((user: any) => {
-            this.checkDatatype(user);
-            return new User(
-                user.id, user.username, '', user.forename, user.surname,
-                user.phone, user.radioCallName, user.section, user.isActive,
-                user.createdAt, user.createdBy, user.modifiedAt, user.modifiedBy, user.isDeleted
-            );
-        }) : [];
-    }
-
-    /**
-     * Finds for a given role all the users which have this role
-     * @param role role
-     */
-    public async findUsersByRole(role: Role): Promise<IUser[]> {
-        const users = await this.database.selectUsersByRole(role);
-        return users ? users.map((user: any) => {
-            this.checkDatatype(user);
-            return new User(
-                user.id, user.username, '', user.forename, user.surname,
-                user.phone, user.radioCallName, user.section, user.isActive,
-                user.createdAt, user.createdBy, user.modifiedAt, user.modifiedBy, user.isDeleted
-            );
-        }) : [];
     }
 
     /**
@@ -193,8 +151,7 @@ export class UserRepository {
         user.surname = null;
         user.forename = null;
         user.password = "";
-        user.phone = null;
-        user.radioCallName = null;
+        user.email = null;
     }
 
     /**
@@ -208,38 +165,6 @@ export class UserRepository {
         }
         if (user.password.length <= 0) {
             throw new TranslatableError('error.repository.user.password_is_empty');
-        }
-    }
-
-    /**
-     * It's not allowed to remove a user which is the last active admin.
-     * @param user User object
-     * @private
-     */
-    private async checkAdminRemoveConstraint(user: IUser) : Promise<void> {
-        const section = await sectionRepository.findById(user.section);
-        if (section.role === Role.ADMINISTRATOR) {
-            let admins = await userRepository.findUsersByRole(Role.ADMINISTRATOR);
-
-            // Only active admins are relevant
-            admins = admins.filter(admin => admin.isActive);
-
-            // No admin would exist if we remove this section
-            if (admins.filter(admin => user.id !== admin.id).length === 0) {
-                throw new TranslatableError('error.repository.user.last_admin_removed');
-            }
-        }
-    }
-
-    /**
-     * If the section of an user is changed at least one admin account must remain.
-     * @param oldUser The old user from db
-     * @param newUser The new user with changes
-     * @private
-     */
-    private async checkAdminRemainsConstraint(oldUser: IUser, newUser: IUser): Promise<void> {
-        if (oldUser.section !== newUser.section || oldUser.isActive !== newUser.isActive) {
-            await this.checkAdminRemoveConstraint(oldUser);
         }
     }
 

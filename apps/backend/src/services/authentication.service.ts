@@ -26,7 +26,6 @@ import TranslatableError from "../types/translatable.error";
 // import data models and controller instances
 import userRepository, {UserRepository} from "../repositories/user.repository";
 import Role from "../models/role.enum";
-import sectionRepository from "../repositories/section.repository";
 import contextWrapper from "../utils/context.wrapper";
 
 /**
@@ -69,19 +68,10 @@ class AuthenticationService {
         if (!match) {
             throw new TranslatableError('error.authentication.wrong_credentials');
         }
-        const section = await sectionRepository.findById(user.section);
 
-        // Only admins are authorized to login into the app if the section is not active
-        if (!section.isActive && section.role !== Role.ADMINISTRATOR) {
-            throw new TranslatableError('error.authentication.section_not_active_and_not_admin');
-        }
         return jwt.sign({
                 id: user.id,
-                username: user.username,
-                role: section.role,
-                sectionId: section.id,
-                sectionName: section.name,
-                sectionSupervisor: section.supervisor
+                username: user.username
             },
             environment.accessTokenSecret
         );
@@ -114,12 +104,7 @@ class AuthenticationService {
                         }
                         req.id = payload.id;
                         req.username = payload.username;
-                        req.role = payload.role;
-                        req.sectionId = payload.sectionId;
-                        req.sectionSupervisor = payload.sectionSupervisor;
                         contextWrapper.setUsername(payload.username);
-                        contextWrapper.setSectionId(payload.sectionId);
-                        contextWrapper.setRole(payload.role);
                         await this.checkAccount(req);
                         next();
                     } catch (err) {
@@ -170,15 +155,6 @@ class AuthenticationService {
         }
         if (!user.isActive) {
             throw new TranslatableError('error.authentication.logout.user_not_active');
-        }
-        const section = await sectionRepository.findById(user.section);
-
-        // Only admins are authorized to use the app if the section is not active
-        if (!section.isActive && section.role !== Role.ADMINISTRATOR) {
-            throw new TranslatableError('error.authentication.logout.section_not_active_and_not_admin');
-        }
-        if (user.section !== request.sectionId || section.role !== request.role) {
-            throw new TranslatableError('error.authentication.logout.user_info_changed');
         }
     }
 }

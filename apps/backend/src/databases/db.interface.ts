@@ -17,6 +17,6 @@ export default interface IDatabase {
     selectUserById(id: number): Promise<any>;
     selectUserByUsername(username: string): Promise<any>;
     insertUser(username: string, password: string, forename: string, surname: string, email: string): void;
-    updateUser(id: number, username: string, password: string, forename: string, surname: string, email: string, isActive: boolean, isDeleted: boolean): void;
+    updateUser(id: number, username: string, password: string, forename: string, surname: string, email: string, isActive: boolean): void;
     deleteUser(id: number): void;
 }
