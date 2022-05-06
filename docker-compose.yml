@@ -48,7 +48,7 @@ services:
     command: "npm run dev"
     environment:
       APP_NAME: "webadmin"
-      VITE_PUBLIC_API_URL: "http://localhost:4444/api"
+      VITE_PUBLIC_API_URL: "http://localhost:3333/api/v1"
     ports:
       - "0.0.0.0:3334:3000"
     volumes:
@@ -69,7 +69,7 @@ services:
     command: "npm run dev"
     environment:
       APP_NAME: "webapp"
-      VITE_PUBLIC_API_URL: "http://localhost:4444/api"
+      VITE_PUBLIC_API_URL: "http://localhost:3333/api/v1"
     ports:
       - "0.0.0.0:3335:3000"
     volumes:
