@@ -1,7 +1,7 @@
 volumes:
   dev-database:
   node-cache:
-  pnpm-cache:
+  pnpm-store:
 
 services:
   helpugee-db:
@@ -33,7 +33,7 @@ services:
     volumes:
       - ./apps:/app
       - node-cache:/root/.cache
-      - pnpm-cache:/root/.pnpm-store
+      - pnpm-store:/app/.pnpm-store
 
   helpugee-webadmin:
     build:
@@ -55,7 +55,7 @@ services:
     volumes:
       - ./apps:/app
       - node-cache:/root/.cache
-      - pnpm-cache:/root/.pnpm-store
+      - pnpm-store:/app/.pnpm-store
 
   helpugee-webapp:
     build:
@@ -77,4 +77,4 @@ services:
     volumes:
       - ./apps:/app
       - node-cache:/root/.cache
-      - pnpm-cache:/root/.pnpm-store
+      - pnpm-store:/app/.pnpm-store
