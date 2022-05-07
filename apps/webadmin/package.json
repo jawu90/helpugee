@@ -18,6 +18,7 @@
     "@types/cookie": "^0.4.1",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
+    "broadcast-channel": "^4.11.0",
     "eslint": "^8.12.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^4.0.0",
@@ -31,9 +32,14 @@
   },
   "type": "module",
   "dependencies": {
+    "@fontsource/archivo": "^4.5.7",
     "@fontsource/fira-mono": "^4.5.0",
+    "@fontsource/gotu": "^4.5.6",
     "@lukeed/uuid": "^2.0.0",
-    "cookie": "^0.4.1"
+    "@sveltestack/svelte-query": "^1.6.0",
+    "cookie": "^0.4.1",
+    "jose": "^4.8.1",
+    "leaflet": "^1.8.0"
   },
   "packageManager": "pnpm@7.0.0"
 }

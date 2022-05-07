@@ -11,10 +11,13 @@
 				Authorization: `Bearer ${$jwtToken}`
 			}
 		});
-		return (await res.json()) as User[];
+		const users = (await res.json()) as User[];
+		console.log({ users });
+		return users;
 	};
 
 	const queryResult = useQuery('users', getUsers);
+	console.log($queryResult.error);
 </script>
 
 <svelte:head>
@@ -23,6 +26,10 @@
 </svelte:head>
 
 <AdministrationPage>
-	<h2>helpugee administration</h2>
-	<p>...</p>
+	<h2>Registered users</h2>
+	<ul>
+		{#each $queryResult.data ?? [] as user}
+			<li>{user.username}</li>
+		{/each}
+	</ul>
 </AdministrationPage>

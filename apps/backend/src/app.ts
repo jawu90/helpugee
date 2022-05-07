@@ -21,6 +21,8 @@ import winstonExpressLogger from './utils/logger.util';
 // import routes
 import loginRoute from './api/v1/routes/login.route';
 import userRoute from './api/v1/routes/user.route';
+import adminRoute from './routes/admin.route';
+import webappRoute from './routes/webapp.route';
 
 // create express app
 const app: express.Express = express();
@@ -34,11 +36,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(winstonExpressLogger);
 
 // Use any third party middleware that does not need access to the context here, e.g.
-app.use(httpContext.middleware);
+app.use('/api', httpContext.middleware);
 
 // use api routes
 app.use('/api/v1/login', loginRoute);
 app.use('/api/v1/user', userRoute);
+
+app.use('/admin', adminRoute);
+app.use(webappRoute);
 
 // export express app
 export default app;

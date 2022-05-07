@@ -15,6 +15,8 @@
 	--secondary-color: #009fc2;
 	--text-color: #0e1b12;
 	--background-color: #ffffff;
+	--error-background-color: rgba(168, 0, 0, 0.3);
+	--error-accent-color: rgba(168, 0, 0, 0.9);
 }
 
 body {

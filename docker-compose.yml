@@ -54,12 +54,17 @@ services:
       DB_PORT: "${POSTGRES_PORT}"
       DB_NAME: "${POSTGRES_DB}"
       ACCESS_TOKEN_SECRET: "${ACCESS_TOKEN_SECRET}"
+      FRONTEND_ADMIN_DEV_URL: "http://helpugee-webadmin:3000"
+      FRONTEND_ADMIN_STATIC_PATH: "/app/webadmin/dist"
+      FRONTEND_WEB_DEV_URL: "http://helpugee-webapp:3000"
+      FRONTEND_WEB_STATIC_PATH: "/app/webapp/dist"
+      NODE_ENV: "${NODE_ENV}"
     ports:
-      - "0.0.0.0:3333:${HELPUGEE_BACKEND_PORT}"
+      - "0.0.0.0:${HELPUGEE_BACKEND_PORT}:${HELPUGEE_BACKEND_PORT}"
     volumes:
       - ./apps:/app
       - node-cache:/root/.cache
-      - pnpm-store:/app/.pnpm-store
+      - pnpm-store:/root/.local/share/pnpm
 
   helpugee-webadmin:
     build:
@@ -74,14 +79,14 @@ services:
     command: "npm run dev"
     environment:
       APP_NAME: "webadmin"
-      VITE_PUBLIC_API_URL: "http://localhost:3333/api/v1"
+      VITE_PUBLIC_API_URL: "http://localhost:${HELPUGEE_BACKEND_PORT}/api/v1"
     ports:
       - "0.0.0.0:3334:3000"
       - "0.0.0.0:3344:3344"
     volumes:
       - ./apps:/app
       - node-cache:/root/.cache
-      - pnpm-store:/app/.pnpm-store
+      - pnpm-store:/root/.local/share/pnpm
 
   helpugee-webapp:
     build:
@@ -96,11 +101,11 @@ services:
     command: "npm run dev"
     environment:
       APP_NAME: "webapp"
-      VITE_PUBLIC_API_URL: "http://localhost:3333/api/v1"
+      VITE_PUBLIC_API_URL: "http://localhost:${HELPUGEE_BACKEND_PORT}/api/v1"
     ports:
       - "0.0.0.0:3335:3000"
       - "0.0.0.0:3345:3345"
     volumes:
       - ./apps:/app
       - node-cache:/root/.cache
-      - pnpm-store:/app/.pnpm-store
+      - pnpm-store:/root/.local/share/pnpm

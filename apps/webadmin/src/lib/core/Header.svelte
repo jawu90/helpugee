@@ -5,15 +5,14 @@
 <nav>
 	<ul>
 		<NavLink href="/">Home</NavLink>
-		<NavLink href="/map">Map</NavLink>
-		<NavLink href="/how-to-help">How to help</NavLink>
+		<NavLink href="/users">Users</NavLink>
 	</ul>
 </nav>
 
 <style>
 	nav {
 		--link-color: #fff;
-		--active-color: #f00;
+		--active-color: rgba(255, 255, 255, 0.8);
 		background-color: var(--primary-color);
 		padding: 1em 2em;
 		display: flex;

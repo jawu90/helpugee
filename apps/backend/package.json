@@ -34,6 +34,7 @@
     "express-http-context": "^1.2.4",
     "express-jwt": "^6.1.0",
     "express-winston": "^4.2.0",
+    "http-proxy-middleware": "1.0.6",
     "jsonwebtoken": "^8.5.1",
     "node-pre-gyp": "^0.17.0",
     "pg": "^8.7.1",
@@ -62,5 +63,6 @@
     "supertest": "^6.1.6",
     "ts-jest": "^27.0.7",
     "typedoc": "^0.22.11"
-  }
+  },
+  "packageManager": "pnpm@7.0.0"
 }
