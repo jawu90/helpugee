@@ -15,9 +15,9 @@
 import express, { Request, Response, NextFunction } from 'express';
 
 // import data models, interfaces and controllers
-import userService from '../../services/user.service';
-import authenticationService from "../../services/authentication.service";
-import TranslatableError from "../../types/translatable.error";
+import userService from '../../../services/user.service';
+import authenticationService from "../../../services/authentication.service";
+import TranslatableError from "../../../types/translatable.error";
 
 // create router object
 const router = express.Router();

@@ -17,12 +17,12 @@
 import express, {NextFunction, Request, Response} from 'express';
 
 // import data models, interfaces and services
-import User from './../../models/user.model';
-import userService from '../../services/user.service';
-import userRepository from '../../repositories/user.repository';
-import authenticationService from "../../services/authentication.service";
-import utilsService from "../../services/utils.service";
-import TranslatableError from "../../types/translatable.error";
+import User from './../../../models/user.model';
+import userService from '../../../services/user.service';
+import userRepository from '../../../repositories/user.repository';
+import authenticationService from "../../../services/authentication.service";
+import utilsService from "../../../services/utils.service";
+import TranslatableError from "../../../types/translatable.error";
 
 // create router object
 const router = express.Router();

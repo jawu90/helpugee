@@ -126,7 +126,7 @@ class Environment {
      * @returns Database name from env or default value '5432'.
      */
     private readDbName(): string {
-        return process.env.DB_NAME || 'flood';
+        return process.env.DB_NAME || 'helpugee';
     }
 
     /**

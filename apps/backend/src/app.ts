@@ -19,8 +19,8 @@ import httpContext from 'express-http-context';
 import winstonExpressLogger from './utils/logger.util';
 
 // import routes
-import loginRoute from './api/routes/login.route';
-import userRoute from './api/routes/user.route';
+import loginRoute from './api/v1/routes/login.route';
+import userRoute from './api/v1/routes/user.route';
 
 // create express app
 const app: express.Express = express();
@@ -37,8 +37,8 @@ app.use(winstonExpressLogger);
 app.use(httpContext.middleware);
 
 // use api routes
-app.use('/login', loginRoute);
-app.use('/user', userRoute);
+app.use('/api/v1/login', loginRoute);
+app.use('/api/v1/user', userRoute);
 
 // export express app
 export default app;
