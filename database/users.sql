@@ -17,7 +17,7 @@ CREATE TABLE users (
 );
 
 INSERT INTO users
-        (username, password, forename, surname, phone, radio_call_name, section, created_at, created_by)
+        (username, password, forename, surname, email, created_at, created_by)
     VALUES
         ('smeier', '$2b$10$xQS7qUg1SMH1yuCnaldOUuyIW/BYslnQyyU8EjhOS0b6XnKeqomjK', 'Sepp', 'Maier', 'maier@blabla.com', current_timestamp, 'INIT'),
         ('ukeller', '$2b$10$gvygRocM5fecYOReq.gSWOC6NNikbnJMlmuuo0m.Q04btbw3uqF6C', 'Ulli', 'Keller', 'keller@blabla.org', current_timestamp, 'INIT')
