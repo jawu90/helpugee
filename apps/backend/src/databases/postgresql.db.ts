@@ -36,6 +36,9 @@ class PostGreSqlDatabase implements IDatabase {
     private sqlSelectUserByUsername = 'SELECT id, username, password, forename, surname, email, is_active as "isActive", created_at as "createdAt", created_by as "createdBy", modified_at as "modifiedAt", modified_by as "modifiedBy", is_deleted as "isDeleted" FROM users WHERE username = $1 and is_deleted = FALSE';
     private sqlInsertUser = 'INSERT INTO users (username, password, forename, surname, email, created_at, created_by) VALUES ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP, $7)';
     private sqlUpdateUser = 'UPDATE users SET username=$1, password=$2, forename=$3, surname=$4, email=$5, is_active=$6, modified_at=CURRENT_TIMESTAMP, modified_by=$7, is_deleted=$8 WHERE id = $9';
+    private sqlDeleteUser = 'UPDATE users SET modified_at=CURRENT_TIMESTAMP, modified_by=$1, is_deleted=TRUE WHERE id = $2';
+
+
 
     /**
      * @description Default constructor.
@@ -126,7 +129,8 @@ class PostGreSqlDatabase implements IDatabase {
      * @async
      */
     public async deleteUser(id: number): Promise<void> {
-
+        const client = await this.pool.connect();
+        await client.query(this.sqlDeleteUser, [contextWrapper.getUsername, id]).finally(() => client.release());
     }
 
 }
