@@ -12,8 +12,26 @@ services:
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_HOST: "${POSTGRES_HOST}"
+      POSTGRES_PORT: "${POSTGRES_PORT}"
     volumes:
       - dev-database:/var/lib/postgresql/data
+
+  helpugee-db-reset:
+    depends_on:
+      - helpugee-db
+    image: postgis/postgis
+    entrypoint: "/app/reset-database.sh"
+    command: "echo 'db-reset done'"
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_HOST: "helpugee-db"
+      POSTGRES_PORT: "${POSTGRES_PORT}"
+      RESET_DB: "${RESET_DB}"
+    volumes:
+      - ./database:/app
 
   helpugee-backend:
     build:
@@ -28,8 +46,16 @@ services:
     command: "npm run dev"
     environment:
       APP_NAME: "backend"
+      PORT: "${HELPUGEE_BACKEND_PORT}"
+      IP: "${HELPUGEE_BACKEND_HOST}"
+      DB_USER: "${POSTGRES_USER}"
+      DB_PASSWORD: "${POSTGRES_PASSWORD}"
+      DB_HOST: "helpugee-db"
+      DB_PORT: "${POSTGRES_PORT}"
+      DB_NAME: "${POSTGRES_DB}"
+      ACCESS_TOKEN_SECRET: "${ACCESS_TOKEN_SECRET}"
     ports:
-      - "0.0.0.0:3333:3333"
+      - "0.0.0.0:3333:${HELPUGEE_BACKEND_PORT}"
     volumes:
       - ./apps:/app
       - node-cache:/root/.cache
