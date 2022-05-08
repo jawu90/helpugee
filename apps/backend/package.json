@@ -7,9 +7,7 @@
     "build": "tsc",
     "start": "tsc & node .",
     "dev": "tsc -w & nodemon .",
-    "test": "jest",
-    "jsdoc": "jsdoc -c ./jsdoc.json",
-    "apidoc": "apidoc -c ./apidoc.json -i ./src/api -o ./apidoc/"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
