@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "start": "tsc & node .",
-    "dev": "tsc -w & nodemon .",
+    "dev": "NODE_ENV=development tsc-watch --onSuccess 'node dist/main.js' --onFailure 'echo Compilation failed!' --build tsconfig.json",
+    "dev_local": "tsc -w & nodemon .",
     "test": "jest"
   },
   "repository": {
