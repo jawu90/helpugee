@@ -1,0 +1,23 @@
+FROM node:18 as base-prep
+RUN corepack enable
+RUN corepack prepare pnpm@7.0.0 --activate
+WORKDIR /app
+COPY .npmrc* pnpm-lock.yaml pnpm-workspace.yaml ./
+
+FROM base-prep as builder
+RUN pnpm fetch
+COPY ./apps ./apps/
+RUN pnpm install -r --offline
+RUN pnpm run -r --parallel build
+
+FROM base-prep as runner
+RUN pnpm fetch --prod
+COPY --from=builder /app/apps/backend/dist ./apps/backend/dist/
+COPY --from=builder /app/apps/webadmin/build ./apps/webadmin/build/
+COPY --from=builder /app/apps/webapp/build ./apps/webapp/build/
+COPY apps/backend/package.json ./apps/backend/
+COPY apps/webadmin/package.json ./apps/webadmin/
+COPY apps/webapp/package.json ./apps/webapp/
+RUN pnpm install -r --offline --ignore-scripts --prod
+WORKDIR /app/apps/backend
+CMD [ "node", "dist/main.js" ]

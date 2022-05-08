@@ -38,12 +38,9 @@ services:
       args:
         APP_NAME: "backend"
       context: .
-      dockerfile: ./docker/Dockerfile.dev
+      dockerfile: ./docker/Dockerfile.prod
       target: runner
-    working_dir: "/app/backend"
     container_name: helpugee-backend
-    entrypoint: /docker/entrypoint.sh
-    command: "npm run dev"
     environment:
       APP_NAME: "backend"
       PORT: "${HELPUGEE_BACKEND_PORT}"
@@ -58,54 +55,6 @@ services:
       FRONTEND_ADMIN_STATIC_PATH: "/app/apps/webadmin/build"
       FRONTEND_WEB_DEV_URL: "http://helpugee-webapp:3000"
       FRONTEND_WEB_STATIC_PATH: "/app/apps/webapp/build"
-      NODE_ENV: "${NODE_ENV}"
+      NODE_ENV: "production"
     ports:
       - "0.0.0.0:${HELPUGEE_BACKEND_PORT}:${HELPUGEE_BACKEND_PORT}"
-    volumes:
-      - ./apps:/app
-      - node-cache:/root/.cache
-      - pnpm-store:/root/.local/share/pnpm
-
-  helpugee-webadmin:
-    build:
-      args:
-        APP_NAME: "webadmin"
-      context: .
-      dockerfile: ./docker/Dockerfile.dev
-      target: runner
-    working_dir: "/app/webadmin"
-    container_name: helpugee-webadmin
-    entrypoint: /docker/entrypoint.sh
-    command: "npm run dev"
-    environment:
-      APP_NAME: "webadmin"
-      VITE_PUBLIC_API_URL: "http://localhost:${HELPUGEE_BACKEND_PORT}/api/v1"
-    ports:
-      - "0.0.0.0:3334:3000"
-      - "0.0.0.0:3344:3344"
-    volumes:
-      - ./apps:/app
-      - node-cache:/root/.cache
-      - pnpm-store:/root/.local/share/pnpm
-
-  helpugee-webapp:
-    build:
-      args:
-        APP_NAME: "webapp"
-      context: .
-      dockerfile: ./docker/Dockerfile.dev
-      target: runner
-    working_dir: "/app/webapp"
-    container_name: helpugee-webapp
-    entrypoint: /docker/entrypoint.sh
-    command: "npm run dev"
-    environment:
-      APP_NAME: "webapp"
-      VITE_PUBLIC_API_URL: "http://localhost:${HELPUGEE_BACKEND_PORT}/api/v1"
-    ports:
-      - "0.0.0.0:3335:3000"
-      - "0.0.0.0:3345:3345"
-    volumes:
-      - ./apps:/app
-      - node-cache:/root/.cache
-      - pnpm-store:/root/.local/share/pnpm

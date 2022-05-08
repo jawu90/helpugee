@@ -180,7 +180,7 @@ class Environment {
      * @returns Secret from env or default value '/app/webadmin/build'.
      */
     private readFrontendAdminAppPath(): string {
-        return process.env.FRONTEND_ADMIN_STATIC_PATH || '/app/webadmin/build';
+        return process.env.FRONTEND_ADMIN_STATIC_PATH || '/app/apps/webadmin/build';
     }
 
     /**
@@ -196,7 +196,7 @@ class Environment {
      * @returns Secret from env or default value '/app/webapp/build'.
      */
     private readFrontendWebAppPath(): string {
-        return process.env.FRONTEND_WEB_STATIC_PATH || '/app/webapp/build';
+        return process.env.FRONTEND_WEB_STATIC_PATH || '/app/apps/webapp/build';
     }
 
     /**

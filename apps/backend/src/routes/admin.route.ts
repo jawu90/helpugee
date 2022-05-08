@@ -14,6 +14,9 @@ export default function adminRoute(): express.RequestHandler {
 
   const router = Router();
 
+  console.log(
+    `Serving path for webadmin application ${environment.frontendAdminAppPath}`
+  );
   router.use(express.static(environment.frontendAdminAppPath));
 
   return router;

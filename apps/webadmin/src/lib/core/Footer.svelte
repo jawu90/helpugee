@@ -1,11 +1,9 @@
 <script lang="ts">
-	import NavLink from './NavLink.svelte';
 </script>
 
 <nav>
 	<ul>
-		<NavLink href="/imprint">Imprint</NavLink>
-		<NavLink href="/privacy">Privacy</NavLink>
+		<li>helpugee administration</li>
 	</ul>
 </nav>
 

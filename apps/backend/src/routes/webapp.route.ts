@@ -14,6 +14,9 @@ export default function webappRoute(): express.RequestHandler {
 
   const router = Router();
 
+  console.log(
+    `Serving path for webapp application ${environment.frontendWebAppPath}`
+  );
   router.use(express.static(environment.frontendWebAppPath));
 
   return router;

@@ -133,6 +133,13 @@ class PostGreSqlDatabase implements IDatabase {
         await client.query(this.sqlDeleteUser, [contextWrapper.getUsername, id]).finally(() => client.release());
     }
 
+    selectAllFeatures(): Promise<any[]> { throw new Error('not implemented'); }
+    selectFeatureById(id: number): Promise<any> { throw new Error('not implemented'); }
+    insertFeature(geom: {lat: number, lng: number}, address: string, service_product: string, opening_hours: string,
+                we_speak: string, specific_offer_for_refugees: string, contact_information: string, from_date: Date, until_date: Date, other: string): void { throw new Error('not implemented'); }
+    updateFeature(id: number, geom: {lat: number, lng: number}, address: string, service_product: string, opening_hours: string,
+                we_speak: string, specific_offer_for_refugees: string, contact_information: string, from_date: Date, until_date: Date, other: string): void { throw new Error('not implemented'); }
+    deleteFeature(id: number): void { throw new Error('not implemented'); }
 }
 
 // create PostGreSQL database instance

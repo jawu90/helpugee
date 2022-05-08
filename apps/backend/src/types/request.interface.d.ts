@@ -1,8 +1,5 @@
-import Role from "../models/role.enum";
-
-export {};
-
-declare module 'express-serve-static-core' {
+import type Role from '../models/role.enum';
+declare module 'express' {
     interface Request {
         id?: number,
         username?: string,

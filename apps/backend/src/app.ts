@@ -42,8 +42,8 @@ app.use('/api', httpContext.middleware);
 app.use('/api/v1/login', loginRoute);
 app.use('/api/v1/user', userRoute);
 
-app.use('/admin', adminRoute);
-app.use(webappRoute);
+app.use('/admin', adminRoute());
+app.use(webappRoute());
 
 // export express app
 export default app;

@@ -7,38 +7,30 @@
  */
 
 // import data interface
-import IUser from '../models/user.interface';
+import IFeature from '../models/feature.interface';
 
 /** 
  * @classdesc Class to handle user data.
  * @since 0.1.0
  * @author Andreas W. Weber
  */
-export default class User implements IUser {
+export default class Feature implements IFeature {
 
     /** 
      * @description Default constructor.
-     * @param id ID of the user.
-     * @param username Username of the user.
-     * @param password Password of the user.
-     * @param forename Forename of the user.
-     * @param surname Surname of the user.
-     * @param email Email of the user.
-     * @param isActive Is user active.
-     * @param createdAt Date on which the user was created.
-     * @param createdBy User which has the user created.
-     * @param modifiedAt Date on which the user was modified.
-     * @param modifiedBy User which has the user modified.
-     * @param isDeleted Is user deleted.
      */
     public constructor(
         readonly id: number,
-        readonly username: string,
-        readonly password: string,
-        public forename: string,
-        public surname: string,
-        public email: string,
-        public isActive: boolean,
+        public geom: {lat: number, lng: number},
+        public address: string, 
+        public service_product: string,
+        public opening_hours: string,
+        public we_speak: string,
+        public specific_offer_for_refugees: string,
+        public contact_information: string,
+        public from_date: Date,
+        public until_date: Date,
+        public other: string,
         readonly createdAt: Date,
         readonly createdBy: string,
         readonly modifiedAt: Date,

@@ -9,6 +9,9 @@ const config = {
 
 	kit: {
 		adapter: adapter({ trailingSlash: 'always' }),
+		prerender: {
+			default: true
+		},
 
 		// Override http methods in the Todo forms
 		methodOverride: {
