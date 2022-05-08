@@ -16,12 +16,9 @@
   },
   "keywords": [
     "API",
-    "flood",
-    "fire",
-    "department",
-    "Passau"
+    "helpugee"
   ],
-  "author": "Team 1",
+  "author": "Helpugee",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.1",
