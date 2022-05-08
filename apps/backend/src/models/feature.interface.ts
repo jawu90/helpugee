@@ -23,8 +23,8 @@ export default interface IFeature extends IBase {
     we_speak: string,
     specific_offer_for_refugees: string,
     contact_information: string,
-    from_date: Date,
-    until_date: Date,
+    from_date: Date | null,
+    until_date: Date | null,
     other: string,
     isDeleted: boolean
  }
