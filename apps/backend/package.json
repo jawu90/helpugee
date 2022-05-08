@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "Backend API for the flood management tool of the Passau fire department.",
+  "description": "Backend API for helpugee.",
   "main": "dist/main.js",
   "scripts": {
     "build": "tsc",
