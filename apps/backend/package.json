@@ -1,5 +1,5 @@
 {
-  "name": "flood-management-api",
+  "name": "backend",
   "version": "1.0.0",
   "description": "Backend API for the flood management tool of the Passau fire department.",
   "main": "dist/main.js",

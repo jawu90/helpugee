@@ -1,7 +1,6 @@
 volumes:
   dev-database:
   node-cache:
-  pnpm-store:
 
 services:
   helpugee-db:
@@ -40,10 +39,10 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile.dev
       target: runner
-    working_dir: "/app/backend"
+    working_dir: "/app"
     container_name: helpugee-backend
     entrypoint: /docker/entrypoint.sh
-    command: "npm run dev"
+    command: "pnpm --filter backend run dev"
     environment:
       APP_NAME: "backend"
       PORT: "${HELPUGEE_BACKEND_PORT}"
@@ -62,9 +61,8 @@ services:
     ports:
       - "0.0.0.0:${HELPUGEE_BACKEND_PORT}:${HELPUGEE_BACKEND_PORT}"
     volumes:
-      - ./apps:/app
+      - ./:/app
       - node-cache:/root/.cache
-      - pnpm-store:/root/.local/share/pnpm
 
   helpugee-webadmin:
     build:
@@ -73,10 +71,10 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile.dev
       target: runner
-    working_dir: "/app/webadmin"
+    working_dir: "/app"
     container_name: helpugee-webadmin
     entrypoint: /docker/entrypoint.sh
-    command: "npm run dev"
+    command: "pnpm --filter webadmin run dev"
     environment:
       APP_NAME: "webadmin"
       VITE_PUBLIC_API_URL: "http://localhost:${HELPUGEE_BACKEND_PORT}/api/v1"
@@ -84,9 +82,8 @@ services:
       - "0.0.0.0:3334:3000"
       - "0.0.0.0:3344:3344"
     volumes:
-      - ./apps:/app
+      - ./:/app
       - node-cache:/root/.cache
-      - pnpm-store:/root/.local/share/pnpm
 
   helpugee-webapp:
     build:
@@ -95,10 +92,10 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile.dev
       target: runner
-    working_dir: "/app/webapp"
+    working_dir: "/app"
     container_name: helpugee-webapp
     entrypoint: /docker/entrypoint.sh
-    command: "npm run dev"
+    command: "pnpm --filter webapp run dev"
     environment:
       APP_NAME: "webapp"
       VITE_PUBLIC_API_URL: "http://localhost:${HELPUGEE_BACKEND_PORT}/api/v1"
@@ -106,6 +103,5 @@ services:
       - "0.0.0.0:3335:3000"
       - "0.0.0.0:3345:3345"
     volumes:
-      - ./apps:/app
+      - ./:/app
       - node-cache:/root/.cache
-      - pnpm-store:/root/.local/share/pnpm

@@ -4,15 +4,14 @@ FROM ${BASE_IMAGE} AS runner
 RUN apt-get update && apt-get install rsync -y
 RUN corepack enable
 RUN corepack prepare pnpm@7.0.0 --activate
-COPY docker/entrypoint.sh /docker/
+WORKDIR /app-cache
+COPY .npmrc* pnpm-lock.yaml* pnpm-workspace.yaml ./
+RUN pnpm fetch
+COPY ./docker/entrypoint.sh /docker/
 
 ARG APP_NAME
-WORKDIR /usr/src/cache/${APP_NAME}
-COPY apps/${APP_NAME}/pnpm-lock.yaml* .
-COPY apps/${APP_NAME}/package.json .
-RUN pnpm install
-
-WORKDIR /app/${APP_NAME}
-COPY apps/${APP_NAME}/ .
-
-CMD [ "pnpm", "run", "dev" ]
+COPY ./apps/${APP_NAME}/package.json ./apps/${APP_NAME}/
+RUN pnpm install --offline --frozen-lockfile --ignore-scripts
+WORKDIR /app
+COPY . ./
+CMD [ "pnpm", "--filter", "${APP_NAME}", "run", "dev" ]
