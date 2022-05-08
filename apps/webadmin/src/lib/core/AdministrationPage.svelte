@@ -6,11 +6,22 @@
 	import { jwtToken } from '$lib/jwtStore';
 	import { browser } from '$app/env';
 
+	console.log('jwtToken', $jwtToken);
 	if (!$jwtToken && browser) {
 		goto(`${base}/login`);
 	}
 </script>
 
 <Header />
-<slot />
+<main><slot /></main>
 <Footer />
+
+<style>
+	main {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		box-sizing: border-box;
+	}
+</style>

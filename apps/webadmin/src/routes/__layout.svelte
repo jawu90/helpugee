@@ -7,17 +7,16 @@
 </script>
 
 <QueryClientProvider client={queryClient}>
-	<main>
+	<div>
 		<slot />
-	</main>
+	</div>
 </QueryClientProvider>
 
 <style>
-	main {
-		flex: 1;
+	div {
 		display: flex;
+		flex: 1;
 		flex-direction: column;
 		width: 100%;
-		box-sizing: border-box;
 	}
 </style>

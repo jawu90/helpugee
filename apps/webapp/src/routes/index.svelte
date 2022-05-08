@@ -1,3 +1,7 @@
+<script lang="ts">
+	console.log('hello webapp?');
+</script>
+
 <svelte:head>
 	<title>Helpugee</title>
 	<meta name="description" content="Helpful information for people moving to a new country" />

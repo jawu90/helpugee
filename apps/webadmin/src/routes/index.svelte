@@ -1,20 +1,7 @@
 <script lang="ts">
 	import AdministrationPage from '$lib/core/AdministrationPage.svelte';
-	import { jwtToken } from '$lib/jwtStore';
-	import { API_BASE, type User } from '$lib/user/userApi';
-
-	import { useQuery } from '@sveltestack/svelte-query';
-
-	const getUsers = async () => {
-		const res = await fetch(`${API_BASE}/user`, {
-			headers: {
-				Authorization: `Bearer ${$jwtToken}`
-			}
-		});
-		return (await res.json()) as User[];
-	};
-
-	const queryResult = useQuery('users', getUsers);
+	import { data } from '$lib/jwtStore';
+	console.log('hello webadmin?');
 </script>
 
 <svelte:head>
@@ -24,5 +11,5 @@
 
 <AdministrationPage>
 	<h2>helpugee administration</h2>
-	<p>...</p>
+	<p>{$data?.email}</p>
 </AdministrationPage>

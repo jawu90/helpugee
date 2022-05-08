@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import NavLink from './NavLink.svelte';
 </script>
 
@@ -6,6 +7,9 @@
 	<ul>
 		<NavLink href="/imprint">Imprint</NavLink>
 		<NavLink href="/privacy">Privacy</NavLink>
+		<NavLink href={`${$page.url.origin}/admin`} prefetch={false} rel="external"
+			>Administration</NavLink
+		>
 	</ul>
 </nav>
 

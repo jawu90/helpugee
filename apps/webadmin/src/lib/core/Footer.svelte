@@ -1,9 +1,10 @@
 <script lang="ts">
+	import NavLink from './NavLink.svelte';
 </script>
 
 <nav>
 	<ul>
-		<li>helpugee administration</li>
+		<li><NavLink href="/" prefetch={false} rel="external">Back to page</NavLink></li>
 	</ul>
 </nav>
 
