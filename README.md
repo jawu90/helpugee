@@ -20,4 +20,4 @@ This runs the dev servers for the webadmin, the webapp and backend where the bac
 
 ### Resetting the database
 
-Add a `RESET_DB=true` to `.env` file and run `docker compose run helpugee-db-reset`.
+Use `RESET_DB=true docker compose up helpugee-db-reset` to reset the database or initialize it.
