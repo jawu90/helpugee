@@ -57,7 +57,7 @@ services:
       FRONTEND_ADMIN_STATIC_PATH: "/app/apps/webadmin/build"
       FRONTEND_WEB_DEV_URL: "http://helpugee-webapp:3000"
       FRONTEND_WEB_STATIC_PATH: "/app/apps/webapp/build"
-      NODE_ENV: "${NODE_ENV}"
+      NODE_ENV: "development"
     ports:
       - "0.0.0.0:${HELPUGEE_BACKEND_PORT}:${HELPUGEE_BACKEND_PORT}"
     volumes:
