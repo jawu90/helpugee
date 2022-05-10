@@ -42,5 +42,5 @@
     "jose": "^4.8.1",
     "leaflet": "^1.8.0"
   },
-  "packageManager": "pnpm@7.0.0"
+  "packageManager": "pnpm@7.0.1"
 }
