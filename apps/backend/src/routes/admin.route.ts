@@ -9,7 +9,7 @@ export default function adminRoute(): express.RequestHandler {
     );
     return createProxyMiddleware({
       target: environment.frontendAdminAppDevServiceUrl,
-    } as Options);
+    });
   }
 
   const router = Router();

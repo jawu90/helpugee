@@ -9,7 +9,7 @@ export default function webappRoute(): express.RequestHandler {
     );
     return createProxyMiddleware({
       target: environment.frontendWebAppDevServiceUrl,
-    } as Options);
+    });
   }
 
   const router = Router();
