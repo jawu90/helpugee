@@ -1,6 +1,8 @@
 import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 
+console.log('project root:', process.cwd());
+
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
@@ -19,10 +21,8 @@ const config = {
 			base: '/admin/',
 			server: {
 				base: '/admin/',
-				fs: {
-					allow: ['.']
-				},
 				hmr: {
+					path: '/admin/',
 					host: '0.0.0.0',
 					port: '3344'
 				}
