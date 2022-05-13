@@ -21,17 +21,12 @@ export default function createAdminRoute(): express.RequestHandler {
     });
 
     router.use("/admin", (req, res) => {
-      console.log(req.url);
       const newUrl = environment.frontendAdminAppDevServiceUrl + req.url;
-
-      console.log({ newUrl });
       res.redirect(newUrl);
     });
 
     router.use((req, res) => {
       const newUrl = environment.frontendWebAppDevServiceUrl + req.url;
-
-      console.log({ newUrl });
       res.redirect(newUrl);
     });
 
