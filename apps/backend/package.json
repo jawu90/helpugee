@@ -27,7 +27,6 @@
     "express-http-context": "^1.2.4",
     "express-jwt": "^7.7.0",
     "express-winston": "^4.2.0",
-    "http-proxy-middleware": "2.0.6",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.3",
     "pg-promise": "^10.11.1",

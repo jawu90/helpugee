@@ -1,33 +1,20 @@
 import express, { Router } from "express";
-import { createProxyMiddleware } from "http-proxy-middleware";
 import environment from "../utils/environment.util";
 
 export default function createAdminRoute(): express.RequestHandler {
   const router = Router();
 
   if (environment.development) {
-    console.log(
-      `Using development proxy for webadmin application ${environment.frontendAdminAppDevServiceUrl}`
-    );
-
-    const webappDevServerMiddleware = createProxyMiddleware({
-      target: environment.frontendWebAppDevServiceUrl,
-      changeOrigin: true,
-    });
-
-    const webadminDevServerMiddleware = createProxyMiddleware({
-      target: environment.frontendAdminAppDevServiceUrl,
-      changeOrigin: true,
-    });
+    console.log(`Using development -> redirect to webadmin / webapp URLs`);
 
     router.use("/admin", (req, res) => {
       const newUrl = environment.frontendAdminAppDevServiceUrl + req.url;
-      res.redirect(newUrl);
+      res.redirect(302, newUrl);
     });
 
     router.use((req, res) => {
       const newUrl = environment.frontendWebAppDevServiceUrl + req.url;
-      res.redirect(newUrl);
+      res.redirect(302, newUrl);
     });
 
     return router;
