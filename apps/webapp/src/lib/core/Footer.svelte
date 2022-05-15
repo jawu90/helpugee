@@ -1,15 +1,13 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import NavLink from './NavLink.svelte';
+	const VITE_WEBADMIN_URL = import.meta.env.VITE_WEBADMIN_URL;
 </script>
 
 <nav>
 	<ul>
 		<NavLink href="/imprint">Imprint</NavLink>
 		<NavLink href="/privacy">Privacy</NavLink>
-		<NavLink href={`${$page.url.origin}/admin`} prefetch={false} rel="external"
-			>Administration</NavLink
-		>
+		<NavLink href={VITE_WEBADMIN_URL} prefetch={false} rel="external">Administration</NavLink>
 	</ul>
 </nav>
 

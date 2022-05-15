@@ -1,10 +1,12 @@
 <script lang="ts">
 	import NavLink from './NavLink.svelte';
+
+	const VITE_WEBAPP_URL = import.meta.env.VITE_WEBAPP_URL;
 </script>
 
 <nav>
 	<ul>
-		<li><NavLink href="/" prefetch={false} rel="external">Back to page</NavLink></li>
+		<li><NavLink href={VITE_WEBAPP_URL} prefetch={false} rel="external">Back to page</NavLink></li>
 	</ul>
 </nav>
 
