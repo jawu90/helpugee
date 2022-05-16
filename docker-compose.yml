@@ -100,7 +100,7 @@ services:
     command: "pnpm --filter webapp run dev"
     environment:
       APP_NAME: "webapp"
-      VITE_WEBADMIN_URL: "http://localhost:3334/"
+      VITE_WEBADMIN_URL: "http://localhost:3334"
       VITE_PUBLIC_API_URL: "http://localhost:${HELPUGEE_BACKEND_PORT}/api/v1"
       VITE_PRIVATE_API_URL: "http://helpugee-backend:${HELPUGEE_BACKEND_PORT}/api/v1"
     ports:

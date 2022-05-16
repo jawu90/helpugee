@@ -14,15 +14,9 @@ const config = {
 		prerender: {
 			default: true
 		},
-		paths: {
-			base: '/admin'
-		},
 		vite: {
-			base: '/admin/',
 			server: {
-				base: '/admin/',
 				hmr: {
-					path: '/admin/',
 					host: '0.0.0.0',
 					port: '3344'
 				}

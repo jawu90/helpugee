@@ -8,9 +8,7 @@ export default function createAdminRoute(): express.RequestHandler {
     console.log(`Using development -> redirect to webadmin / webapp URLs`);
 
     router.use("/admin", (req, res) => {
-      const newUrl =
-        environment.frontendAdminAppDevServiceUrl +
-        req.url.replace(/^\/admin/, "");
+      const newUrl = environment.frontendAdminAppDevServiceUrl + req.url;
       res.redirect(302, newUrl);
     });
 
