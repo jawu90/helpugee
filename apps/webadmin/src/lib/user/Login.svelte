@@ -7,7 +7,6 @@
 	import TextInput from '$lib/core/forms/TextInput.svelte';
 	import { API_BASE } from './userApi';
 
-	console.log('Login component rendering');
 	const error = writable<string>();
 
 	async function checkLoginForm(
@@ -15,7 +14,6 @@
 			currentTarget: EventTarget & HTMLFormElement;
 		}
 	) {
-		console.log('checking login form');
 		event.preventDefault();
 		event.stopPropagation();
 
@@ -61,7 +59,7 @@
 			<label for="password">Password:</label>
 			<TextInput type="password" name="password" />
 		</div>
-		<button type="submit">Login</button>
+		<Button type="submit">Login</Button>
 		{#if $error}
 			<div class="error">Error: {$error}</div>
 		{/if}

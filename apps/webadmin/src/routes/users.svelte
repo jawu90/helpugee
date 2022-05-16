@@ -8,11 +8,15 @@
 	const getUsers = async () => {
 		const res = await fetch(`${API_BASE}/user`, {
 			headers: {
+				Accept: 'application/json',
 				Authorization: `Bearer ${$jwtToken}`
 			}
 		});
-		const users = (await res.json()) as User[];
-		console.log({ users });
+		const jsonResponse = await res.json();
+		if (!res.ok) {
+			throw new Error(jsonResponse.error_msg);
+		}
+		const users = jsonResponse as User[];
 		return users;
 	};
 

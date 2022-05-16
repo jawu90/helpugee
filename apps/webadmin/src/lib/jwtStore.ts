@@ -3,6 +3,6 @@ import * as jose from 'jose';
 
 export const jwtToken = writable<string>();
 
-export const data = derived<typeof jwtToken, jose.JWTPayload>(jwtToken, ([token]) => {
-	return { ...jose.decodeJwt(token), token };
+export const data = derived<typeof jwtToken, jose.JWTPayload>(jwtToken, (token) => {
+	return { ...(token ? jose.decodeJwt(token) : {}), token };
 });

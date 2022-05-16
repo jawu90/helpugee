@@ -1,7 +1,6 @@
 <script lang="ts">
 	import AdministrationPage from '$lib/core/AdministrationPage.svelte';
 	import { data } from '$lib/jwtStore';
-	console.log('this should appear in browser console to make sure JS works');
 </script>
 
 <svelte:head>

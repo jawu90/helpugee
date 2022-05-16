@@ -5,9 +5,7 @@
 	import { jwtToken } from '$lib/jwtStore';
 	import Login from '$lib/user/Login.svelte';
 
-	console.log('login page rendering');
 	if ($jwtToken && $jwtToken.length > 0 && browser) {
-		console.log('redirecting to', base);
 		goto(`${base}/`);
 	}
 </script>
