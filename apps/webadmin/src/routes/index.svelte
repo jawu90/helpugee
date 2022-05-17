@@ -1,6 +1,7 @@
 <script lang="ts">
 	import AdministrationPage from '$lib/core/AdministrationPage.svelte';
 	import { data } from '$lib/jwtStore';
+	console.log({ data: $data });
 </script>
 
 <svelte:head>
@@ -10,5 +11,5 @@
 
 <AdministrationPage>
 	<h2>helpugee administration</h2>
-	<p>{$data?.email}</p>
+	<p>{$data?.username}</p>
 </AdministrationPage>

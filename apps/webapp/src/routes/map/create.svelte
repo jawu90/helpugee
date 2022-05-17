@@ -1,3 +1,7 @@
+<script>
+	import CreateMap from '$lib/map/CreateMap.svelte';
+</script>
+
 <svelte:head>
 	<title>Map</title>
 	<meta name="description" content="Helpful map for new people" />
@@ -9,7 +13,7 @@
 	Stelle und geben sie die zugehörigen Daten ein.
 </p>
 
-<!-- <CreateMap /> -->
+<CreateMap />
 
 <style>
 </style>
