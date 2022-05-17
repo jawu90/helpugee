@@ -16,11 +16,20 @@
 			return;
 		}
 		Leaflet = await import('leaflet');
+		createMap();
 	});
 
-	function createMap(mapOptions: L.MapOptions) {
+	function createMap(mapOptions?: L.MapOptions) {
 		map = Leaflet.map(mapId, mapOptions);
 	}
 </script>
 
 <div id={mapId} />
+
+<style>
+	div {
+		flex: 1;
+		height: 100%;
+		width: 100%;
+	}
+</style>
