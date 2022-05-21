@@ -6,6 +6,7 @@
 	<ul>
 		<NavLink href="/">Home</NavLink>
 		<NavLink href="/map">Map</NavLink>
+		<NavLink href="/map/create">Create</NavLink>
 		<NavLink href="/how-to-help">How to help</NavLink>
 	</ul>
 </nav>
