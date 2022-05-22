@@ -7,10 +7,10 @@
 	<meta name="description" content="Helpful map for new people" />
 </svelte:head>
 
-<h2>Neueintragung</h2>
+<h2>Create a new entry</h2>
 <p>
-	Sie möchten eine neue Information auf der Karte eintragen? Klicken Sie auf die entsprechende
-	Stelle und geben sie die zugehörigen Daten ein.
+	You want to create a new information on the map? Click on the appropriate point and enter the
+	corresponding data.
 </p>
 
 <CreateMap />
