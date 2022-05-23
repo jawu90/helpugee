@@ -1,7 +1,9 @@
 <script lang="ts" context="module">
 	import 'leaflet/dist/leaflet.css';
+	import type * as L from 'leaflet';
 
 	let id = 0;
+	const DEFAULT_CENTER: L.LatLngExpression = [48.5501835, 12.1342703];
 	const tileProvider = 'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
 	const tileProviderAttribution = {
 		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -11,9 +13,9 @@
 <script lang="ts">
 	import { browser } from '$app/env';
 	import { afterUpdate, onDestroy, onMount } from 'svelte';
-	import type * as L from 'leaflet';
 
 	let map: L.Map | null;
+	let marker: L.Marker | null;
 	const mapId = `create-map-${++id}`;
 	let Leaflet: typeof L;
 
@@ -22,7 +24,7 @@
 			return;
 		}
 		Leaflet = await import('leaflet');
-		createMap();
+		createMap({ center: DEFAULT_CENTER });
 	});
 
 	afterUpdate(() => {
@@ -50,6 +52,19 @@
 	function createMap(mapOptions?: L.MapOptions) {
 		map = Leaflet.map(mapId).setView(mapOptions?.center ?? [0, 0], mapOptions?.zoom ?? 13);
 		Leaflet.tileLayer(tileProvider, tileProviderAttribution).addTo(map);
+		if (mapOptions?.center) {
+			marker = Leaflet.marker(mapOptions.center).addTo(map);
+		}
+		map.on('click', (event: L.LeafletMouseEvent) => {
+			const { latlng } = event;
+			if (!map) {
+				return;
+			}
+			if (marker) {
+				marker.remove();
+			}
+			marker = Leaflet.marker(latlng).addTo(map);
+		});
 	}
 </script>
 
