@@ -12,12 +12,16 @@
 
 <script lang="ts">
 	import { browser } from '$app/env';
-	import { afterUpdate, onDestroy, onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	let map: L.Map | null;
 	let marker: L.Marker | null;
 	const mapId = `create-map-${++id}`;
 	let Leaflet: typeof L;
+
+	let lat: L.LatLng['lat'];
+	let lng: L.LatLng['lng'];
+	let name: string;
 
 	onMount(async () => {
 		if (!browser) {
@@ -25,13 +29,6 @@
 		}
 		Leaflet = await import('leaflet');
 		createMap({ center: DEFAULT_CENTER });
-	});
-
-	afterUpdate(() => {
-		if (!browser) {
-			return;
-		}
-		map?.setView([0, 0]);
 	});
 
 	onDestroy(() => {
@@ -64,6 +61,8 @@
 				marker.remove();
 			}
 			marker = Leaflet.marker(latlng).addTo(map);
+			lat = latlng.lat;
+			lng = latlng.lng;
 		});
 	}
 </script>
@@ -71,11 +70,15 @@
 <svelte:window on:resize={resizeMap} />
 <div class="map">
 	<div class="mapInstance" id={mapId}>&nbsp;</div>
+	<div>
+		<input type="hidden" name="lat" value={lat} />
+		<input type="hidden" name="lng" value={lng} />
+		<input type="text" name="name" bind:value={name} />
+	</div>
 </div>
 
 <style>
 	div.map {
-		background-color: red;
 		flex: 1;
 	}
 
