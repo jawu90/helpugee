@@ -22,6 +22,7 @@
 	let lat: L.LatLng['lat'];
 	let lng: L.LatLng['lng'];
 	let name: string;
+	let description: string;
 
 	onMount(async () => {
 		if (!browser) {
@@ -65,16 +66,23 @@
 			lng = latlng.lng;
 		});
 	}
+
+	function submitForm(e: SubmitEvent) {
+		e.preventDefault();
+		e.stopPropagation();
+		console.log('submitting');
+	}
 </script>
 
 <svelte:window on:resize={resizeMap} />
 <div class="map">
 	<div class="mapInstance" id={mapId}>&nbsp;</div>
-	<div>
+	<form action="" on:submit={submitForm}>
 		<input type="hidden" name="lat" value={lat} />
 		<input type="hidden" name="lng" value={lng} />
 		<input type="text" name="name" bind:value={name} />
-	</div>
+		<textarea name="description" bind:value={description} />
+	</form>
 </div>
 
 <style>
