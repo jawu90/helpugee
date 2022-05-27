@@ -77,13 +77,14 @@
 <svelte:window on:resize={resizeMap} />
 <div class="map">
 	<div class="mapInstance" id={mapId}>&nbsp;</div>
-	<form action="" on:submit={submitForm}>
-		<input type="hidden" name="lat" value={lat} />
-		<input type="hidden" name="lng" value={lng} />
-		<input type="text" name="name" bind:value={name} />
-		<textarea name="description" bind:value={description} />
-	</form>
 </div>
+<form action="" on:submit={submitForm}>
+	<input type="hidden" name="lat" value={lat} />
+	<input type="hidden" name="lng" value={lng} />
+	<label><span>Name:</span><input type="text" name="name" bind:value={name} /></label>
+	<label><span>Description:</span><textarea name="description" bind:value={description} /></label>
+	<button>Submit</button>
+</form>
 
 <style>
 	div.map {
@@ -93,5 +94,16 @@
 	div.mapInstance {
 		height: 100%;
 		width: 100%;
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+	}
+
+	label {
+		display: flex;
+		flex-direction: column;
 	}
 </style>
