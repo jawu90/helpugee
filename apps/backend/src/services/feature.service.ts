@@ -46,9 +46,9 @@ class FeatureService {
      */
     public getInstanceFromInterface(feature: IFeature): IFeature {
         return new Feature(
-            feature.id, feature.geom, feature.address, feature.service_product, feature. opening_hours,
-            feature.we_speak, feature.specific_offer_for_refugees, feature.contact_information,
-            feature.from_date, feature.until_date, feature.other, feature.createdAt, feature.createdBy,
+            feature.id, feature.label, feature.category, feature.geom, feature.address, feature.serviceProduct, feature. openingHours,
+            feature.weSpeak, feature.specificOfferForRefugees, feature.contactInformation,
+            feature.fromDate, feature.untilDate, feature.other, feature.createdAt, feature.createdBy,
             feature.modifiedAt, feature.modifiedBy, feature.isDeleted
         );
     }

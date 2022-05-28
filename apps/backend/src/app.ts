@@ -21,6 +21,7 @@ import winstonExpressLogger from './utils/logger.util';
 // import routes
 import loginRoute from './api/v1/routes/login.route';
 import userRoute from './api/v1/routes/user.route';
+import featureRoute from './api/v1/routes/feature.route'
 import createWebRoute from './routes/index.route';
 
 // create express app
@@ -40,6 +41,7 @@ app.use('/api', httpContext.middleware);
 // use api routes
 app.use('/api/v1/login', loginRoute);
 app.use('/api/v1/user', userRoute);
+app.use('/api/v1/feature', featureRoute);
 
 app.use(createWebRoute());
 

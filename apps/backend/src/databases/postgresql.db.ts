@@ -38,6 +38,8 @@ class PostGreSqlDatabase implements IDatabase {
     private sqlUpdateUser = 'UPDATE users SET username=$1, password=$2, forename=$3, surname=$4, email=$5, is_active=$6, modified_at=CURRENT_TIMESTAMP, modified_by=$7, is_deleted=$8 WHERE id = $9';
     private sqlDeleteUser = 'UPDATE users SET modified_at=CURRENT_TIMESTAMP, modified_by=$1, is_deleted=TRUE WHERE id = $2';
 
+    // Feature queries
+    private sqlSelectAllFeatures = 'SELECT id, label, category, ST_AsGeoJSON(geom) as "geom", address, service_product as "serviceProduct", opening_hours as "openingHours", we_speak as "weSpeak", specific_offer_for_refugees as "specificOfferForRefugees", from_date as "fromDate", until_date as "untilDate", other, is_deleted as "isDeleted", created_at as "createdAt", created_by as "createdBy", modified_at as "modifiedAt", modified_by as "modifiedBy", is_deleted as "isDeleted" FROM features WHERE is_deleted = FALSE ORDER BY category';
 
 
     /**
@@ -92,11 +94,14 @@ class PostGreSqlDatabase implements IDatabase {
 
     /** 
      * @description Insert a single user into database.
-     * @param user A single user.
+     * @param username name of the user account.
+     * @param password password of the user.
+     * @param forename forname of the user.
+     * @param surname surname of the user.
+     * @param email email of the user.
      * @async
      */
-    public async insertUser(username: string, password: string, forename: string, surname: string,
-                            email: string
+    public async insertUser(username: string, password: string, forename: string, surname: string, email: string
     ): Promise<void> {
         const client = await this.pool.connect();
         await client.query(this.sqlInsertUser, [
@@ -111,10 +116,15 @@ class PostGreSqlDatabase implements IDatabase {
     /**
      * @description Update a single user from database.
      * @param id ID of the user.
+     * @param username name of the user account.
+     * @param password password of the user.
+     * @param forename forname of the user.
+     * @param surname surname of the user.
+     * @param email email of the user.
+     * @param isActive flag to set the user active or inactive.
      * @async
      */
-    public async updateUser(id: number, username: string, password: string, forename: string, surname: string,
-                            email: string, isActive: boolean
+    public async updateUser(id: number, username: string, password: string, forename: string, surname: string, email: string, isActive: boolean
     ): Promise<void> {
         const client = await this.pool.connect();
         await client.query(this.sqlUpdateUser, [
@@ -133,11 +143,21 @@ class PostGreSqlDatabase implements IDatabase {
         await client.query(this.sqlDeleteUser, [contextWrapper.getUsername, id]).finally(() => client.release());
     }
 
-    selectAllFeatures(): Promise<any[]> { throw new Error('not implemented'); }
+    /**
+     * @description Retrieve feature entries.
+     * @returns An array of all feature entries.
+     * @async
+     */
+    public async selectAllFeatures(): Promise<any[]> {
+        const client = await this.pool.connect();
+        const { rows } = await client.query(this.sqlSelectAllFeatures).finally(() => client.release());
+        return rows;
+    }
+
     selectFeatureById(id: number): Promise<any> { throw new Error('not implemented'); }
-    insertFeature(geom: {lat: number, lng: number}, address: string, service_product: string, opening_hours: string,
+    insertFeature(label: string, category: string, geom: {type: "POINT", coordinates: [number, number]}, address: string, service_product: string, opening_hours: string,
                 we_speak: string, specific_offer_for_refugees: string, contact_information: string, from_date: Date, until_date: Date, other: string): void { throw new Error('not implemented'); }
-    updateFeature(id: number, geom: {lat: number, lng: number}, address: string, service_product: string, opening_hours: string,
+    updateFeature(id: number, label: string, category: string, geom: {type: "POINT", coordinates: [number, number]}, address: string, service_product: string, opening_hours: string,
                 we_speak: string, specific_offer_for_refugees: string, contact_information: string, from_date: Date, until_date: Date, other: string): void { throw new Error('not implemented'); }
     deleteFeature(id: number): void { throw new Error('not implemented'); }
 }

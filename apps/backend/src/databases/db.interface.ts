@@ -22,9 +22,9 @@ export default interface IDatabase {
 
     selectAllFeatures(): Promise<any[]>;
     selectFeatureById(id: number): Promise<any>;
-    insertFeature(geom: {lat: number, lng: number}, address: string, service_product: string, opening_hours: string,
+    insertFeature(label: string, category: string, geom: {type: "POINT", coordinates: [number, number]}, address: string, service_product: string, opening_hours: string,
                 we_speak: string, specific_offer_for_refugees: string, contact_information: string, from_date: Date, until_date: Date, other: string): void;
-    updateFeature(id: number, geom: {lat: number, lng: number}, address: string, service_product: string, opening_hours: string,
+    updateFeature(id: number, label: string, category: string, geom: {type: "POINT", coordinates: [number, number]}, address: string, service_product: string, opening_hours: string,
                 we_speak: string, specific_offer_for_refugees: string, contact_information: string, from_date: Date, until_date: Date, other: string): void;
     deleteFeature(id: number): void;
 }
