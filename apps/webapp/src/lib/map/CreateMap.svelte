@@ -72,23 +72,39 @@
 </script>
 
 <svelte:window on:resize={resizeMap} />
-<div class="map">
-	<div class="mapInstance" id={mapId}>&nbsp;</div>
-</div>
-<form action="" on:submit={submitForm}>
-	<input type="hidden" name="lat" value={lat} />
-	<input type="hidden" name="lng" value={lng} />
-	<label><span>Name:</span><input type="text" name="name" bind:value={name} /></label>
-	<label><span>Description:</span><textarea name="description" bind:value={description} /></label>
-	<button
-		disabled={lat === undefined ||
-			lng === undefined ||
-			name === undefined ||
-			description === undefined}>Submit</button
-	>
-</form>
+<section>
+	<div class="map">
+		<div class="mapInstance" id={mapId}>&nbsp;</div>
+	</div>
+	<form action="" on:submit={submitForm}>
+		<input type="hidden" name="lat" value={lat} />
+		<input type="hidden" name="lng" value={lng} />
+		<label><span>Name:</span><input type="text" name="name" bind:value={name} /></label>
+		<label><span>Description:</span><textarea name="description" bind:value={description} /></label>
+		<button
+			disabled={lat === undefined ||
+				lng === undefined ||
+				name === undefined ||
+				description === undefined}>Submit</button
+		>
+	</form>
+</section>
 
 <style>
+	section {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		gap: 1rem;
+		min-height: 80vh;
+	}
+
+	@media (min-width: 1200px) {
+		section {
+			flex-direction: row;
+		}
+	}
+
 	div.map {
 		flex: 1;
 	}
@@ -100,6 +116,7 @@
 
 	form {
 		display: flex;
+		flex: 1;
 		flex-direction: column;
 		gap: 1em;
 	}
