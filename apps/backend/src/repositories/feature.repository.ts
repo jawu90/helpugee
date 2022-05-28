@@ -19,6 +19,7 @@ import IDatabase from '../databases/db.interface';
 import postgresql from "../databases/postgresql.db";
 import featureService from "../services/feature.service";
 import TranslatableError from "../types/translatable.error";
+import FeatureDto from "../models/feature.dto";
 
 /**
  * @classdesc Class to handle feature database requests.
@@ -38,14 +39,14 @@ export class FeatureRepository {
      * @returns A array of all feature instances.
      * @async
      */
-    public async findAll(): Promise<IFeature[]> {
+    public async findAll(): Promise<FeatureDto[]> {
         const features = await this.database.selectAllFeatures();
         return features ? features.map((feature: any) => {
             this.checkDatatype(feature);
-            return new Feature(
-                feature.id, feature.geom, feature.address, feature.service_product, feature. opening_hours,
-                feature.we_speak, feature.specific_offer_for_refugees, feature.contact_information,
-                feature.from_date, feature.until_date, feature.other, feature.createdAt, feature.createdBy,
+            return new FeatureDto(
+                feature.id, feature.label, feature.category, feature.geom, feature.address, feature.serviceProduct, feature.openingHours,
+                feature.weSpeak, feature.specificOfferForRefugees, feature.contactInformation,
+                feature.fromDate, feature.untilDate, feature.other, feature.createdAt, feature.createdBy,
                 feature.modifiedAt, feature.modifiedBy, feature.isDeleted
             );
         }) : [];
@@ -60,9 +61,9 @@ export class FeatureRepository {
         const feature = await this.database.selectFeatureById(id);
         this.checkDatatype(feature);
         return new Feature(
-            feature.id, feature.geom, feature.address, feature.service_product, feature.opening_hours,
-            feature.we_speak, feature.specific_offer_for_refugees, feature.contact_information,
-            feature.from_date, feature.until_date, feature.other, feature.createdAt, feature.createdBy,
+            feature.id, feature.label, feature.category, feature.geom, feature.address, feature.serviceProduct, feature. openingHours,
+            feature.weSpeak, feature.specificOfferForRefugees, feature.contactInformation,
+            feature.fromDate, feature.untilDate, feature.other, feature.createdAt, feature.createdBy,
             feature.modifiedAt, feature.modifiedBy, feature.isDeleted
         );
     }
@@ -76,9 +77,9 @@ export class FeatureRepository {
         const newFeature = Object.assign({}, feature);
         this.checkConstraints(newFeature);
         await this.database.insertFeature(
-            feature.geom, feature.address, feature.service_product, feature.opening_hours,
-            feature.we_speak, feature.specific_offer_for_refugees, feature.contact_information,
-            feature.from_date, feature.until_date, feature.other
+            feature.label, feature.category, feature.geom, feature.address, feature.serviceProduct, feature.openingHours,
+            feature.weSpeak, feature.specificOfferForRefugees, feature.contactInformation,
+            feature.fromDate, feature.untilDate, feature.other
         );
     }
 
@@ -94,9 +95,9 @@ export class FeatureRepository {
         newFeature.isDeleted = oldFeature.isDeleted;
         this.checkConstraints(newFeature);
         await this.database.updateFeature(
-            newFeature.id, newFeature.geom, newFeature.address, newFeature.service_product, newFeature.opening_hours,
-            newFeature.we_speak, newFeature.specific_offer_for_refugees, newFeature.contact_information,
-            newFeature.from_date, newFeature.until_date, newFeature.other
+            newFeature.id, newFeature.label, newFeature.category, newFeature.geom, newFeature.address, newFeature.serviceProduct, newFeature.openingHours,
+            newFeature.weSpeak, newFeature.specificOfferForRefugees, newFeature.contactInformation,
+            newFeature.fromDate, newFeature.untilDate, newFeature.other
         );
     }
 

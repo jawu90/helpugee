@@ -1,6 +1,6 @@
 /**
  * Route for features.
- * @file api/routes/user.route.ts
+ * @file api/routes/feature.route.ts
  * @license MIT
  * @since 0.1.0
  * @author Andreas W. Weber

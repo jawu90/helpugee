@@ -1,6 +1,6 @@
 /**
- * Model to handle user data.
- * @file models/user.model.ts
+ * Model to handle feature data.
+ * @file models/feature.model.ts
  * @license MIT
  * @since 0.1.0
  * @author Andreas W. Weber
@@ -10,7 +10,7 @@
 import IFeature from '../models/feature.interface';
 
 /** 
- * @classdesc Class to handle user data.
+ * @classdesc Class to handle feature data.
  * @since 0.1.0
  * @author Andreas W. Weber
  */
@@ -21,15 +21,17 @@ export default class Feature implements IFeature {
      */
     public constructor(
         readonly id: number,
-        public geom: {lat: number, lng: number},
+        public label: string,
+        public category: string,
+        public geom: {type: "POINT", coordinates: [number, number]},
         public address: string, 
-        public service_product: string,
-        public opening_hours: string,
-        public we_speak: string,
-        public specific_offer_for_refugees: string,
-        public contact_information: string,
-        public from_date: Date | null,
-        public until_date: Date | null,
+        public serviceProduct: string,
+        public openingHours: string,
+        public weSpeak: string,
+        public specificOfferForRefugees: string,
+        public contactInformation: string,
+        public fromDate: Date | null,
+        public untilDate: Date | null,
         public other: string,
         readonly createdAt: Date,
         readonly createdBy: string,
