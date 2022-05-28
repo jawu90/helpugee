@@ -41,6 +41,7 @@
     "@types/http-proxy-middleware": "^1.0.0",
     "@types/jest": "^27.5.0",
     "@types/jsonwebtoken": "^8.5.8",
+    "@types/logform": "^1.10.1",
     "@types/pg": "^8.6.5",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.23.0",
