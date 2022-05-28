@@ -50,9 +50,6 @@
 	function createMap(mapOptions?: L.MapOptions) {
 		map = Leaflet.map(mapId).setView(mapOptions?.center ?? [0, 0], mapOptions?.zoom ?? 13);
 		Leaflet.tileLayer(tileProvider, tileProviderAttribution).addTo(map);
-		if (mapOptions?.center) {
-			marker = Leaflet.marker(mapOptions.center).addTo(map);
-		}
 		map.on('click', (event: L.LeafletMouseEvent) => {
 			const { latlng } = event;
 			if (!map) {
@@ -70,7 +67,7 @@
 	function submitForm(e: SubmitEvent) {
 		e.preventDefault();
 		e.stopPropagation();
-		console.log('submitting');
+		console.log('submitting', { name, description, location: { lat, lng } });
 	}
 </script>
 
@@ -83,7 +80,12 @@
 	<input type="hidden" name="lng" value={lng} />
 	<label><span>Name:</span><input type="text" name="name" bind:value={name} /></label>
 	<label><span>Description:</span><textarea name="description" bind:value={description} /></label>
-	<button>Submit</button>
+	<button
+		disabled={lat === undefined ||
+			lng === undefined ||
+			name === undefined ||
+			description === undefined}>Submit</button
+	>
 </form>
 
 <style>
