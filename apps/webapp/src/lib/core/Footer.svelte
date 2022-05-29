@@ -19,6 +19,7 @@
 		padding: 1em 2em;
 		display: flex;
 		justify-content: center;
+		position: relative;
 	}
 
 	ul {
