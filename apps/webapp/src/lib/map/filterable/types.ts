@@ -1,6 +1,7 @@
 export type RequestDto = {
 	region: string;
 	category: string;
+	query: string;
 };
 
 export type Feature = {

@@ -1,7 +1,6 @@
 set client_encoding='UTF-8';
 
 CREATE TYPE category AS ENUM (
-'communal_accommodation',
 'animal_shelter',
 'town_hall',
 'kindergarten',
@@ -63,7 +62,7 @@ INSERT INTO features(
     created_by
 ) VALUES (
 	'AnkER-Zentrum Deggendorf',
-	'communal_accommodation',
+	'refugee_accomodation',
 	ST_SetSRID(ST_MakePoint(48.8403285,12.9489849), 4326),
 	'Stadtfeldstr. 11, 94469 Deggendorf',
 	'',
@@ -78,7 +77,7 @@ INSERT INTO features(
 	'INIT'
 ),(
 	'AnkER-Zentrum Regensburg',
-	'communal_accommodation',
+	'refugee_accomodation',
 	ST_SetSRID(ST_MakePoint(49.0013959,12.1207222), 4326),
 	'Bajuwarenstr. 4, 93053 Regensburg',
 	'',

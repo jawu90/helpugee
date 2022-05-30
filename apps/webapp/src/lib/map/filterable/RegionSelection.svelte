@@ -6,6 +6,7 @@
 
 <h3>Please select the region you're looking for</h3>
 <select name="region" bind:value={$request.region}>
+	<option value="">Anywhere</option>
 	<option value="germany-lower_bavaria-deggendorf">Deggendorf</option>
 	<option value="germany-lower_bavaria-passau">Passau</option>
 	<option value="germany-lower_bavaria">Lower bavaria</option>

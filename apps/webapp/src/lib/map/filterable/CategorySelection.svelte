@@ -6,6 +6,7 @@
 
 <h3>Please select the category you're looking for</h3>
 <select name="category" bind:value={$request.category}>
+	<option value="">Any category</option>
 	<option value="animal_shelter">Animal Shelter</option>
 	<option value="town_hall">Town Hall</option>
 	<option value="kindergarten">Kindergarten</option>
