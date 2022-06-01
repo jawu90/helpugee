@@ -21,8 +21,11 @@
 		const features = jsonResponse as Feature[];
 		const result = features.filter((feature) => {
 			const hasCorrectCategory = $request.category === '' || $request.category === feature.category;
-			const hasCorrectRegion = $request.region === ''; // || isInRegion($request.region, feature.geom);
-			return hasCorrectCategory && hasCorrectRegion;
+			const hasCorrectRegion = $request.region === '';
+			const hasCorrectQuery = $request.query
+				? feature.label.toLocaleLowerCase().includes($request.query.toLocaleLowerCase())
+				: true;
+			return hasCorrectCategory && hasCorrectRegion && hasCorrectQuery;
 		});
 		return result;
 	}
