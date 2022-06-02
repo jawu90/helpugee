@@ -13,7 +13,7 @@
 <style>
 	nav {
 		--link-color: #fff;
-		--active-color: #f00;
+		--active-color: var(--text-color);
 		background-color: var(--text-color);
 		padding: 1em 2em;
 		display: flex;

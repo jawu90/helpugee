@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { API_BASE } from '$lib/core/api';
 	import { useQuery } from '@sveltestack/svelte-query';
 
@@ -53,14 +54,19 @@
 	<TextFilter />
 	<ResultMap />
 
-	<div>
-		<h3>Selections</h3>
-		<p>Region: {$request.region}</p>
-		<p>Category: {$request.category}</p>
-		{#if $selection !== undefined}
-			<p>Selection: {$selection.label}</p>
+	{#if $selection !== undefined}
+		<h3>{$selection.label}</h3>
+		<p>{$selection.data.address}</p>
+		{#if $selection.data.specificOfferForRefugees}
+			<p>Specific offer for refugees.</p>
 		{/if}
-	</div>
+
+		<p>
+			In case you find missing, outdated or false information, help us and <a
+				href="{base}/create/{$selection.id}">add your knowledge here</a
+			>
+		</p>
+	{/if}
 </section>
 
 <style>
