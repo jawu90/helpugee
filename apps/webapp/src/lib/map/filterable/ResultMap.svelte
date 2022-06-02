@@ -15,13 +15,16 @@
 	import { afterUpdate, getContext, onDestroy, onMount } from 'svelte';
 	import type { Feature } from './types';
 	import type { LatLngExpression } from 'leaflet';
-	import type { Readable } from 'svelte/store';
+	import type { Readable, Writable } from 'svelte/store';
 
 	let map: L.Map | null = null;
 	const mapId = `result-map-${++id}`;
 	let Leaflet: typeof L;
 
-	const { results } = getContext<{ results: Readable<Feature[]> }>('filterable-map');
+	const { results, selection } = getContext<{
+		results: Readable<Feature[]>;
+		selection: Writable<Feature>;
+	}>('filterable-map');
 
 	onMount(async () => {
 		if (!browser) {
@@ -58,7 +61,10 @@
 			}
 
 			const latlng = geom.coordinates;
-			Leaflet.marker(latlng).addTo(map);
+			const marker = Leaflet.marker(latlng).addTo(map);
+			marker.on('click', () => {
+				$selection = feature;
+			});
 			coords.push(latlng);
 		}
 

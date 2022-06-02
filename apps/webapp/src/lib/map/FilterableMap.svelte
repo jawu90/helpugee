@@ -11,6 +11,7 @@
 	import type { Feature, RequestDto } from './filterable/types';
 
 	const request = writable<Partial<RequestDto>>({ category: '', region: '', query: '' });
+	const selection = writable<Feature | undefined>();
 
 	async function getFeatures() {
 		const res = await fetch(`${API_BASE}/feature`);
@@ -21,7 +22,7 @@
 		const features = jsonResponse as Feature[];
 		const result = features.filter((feature) => {
 			const hasCorrectCategory = $request.category === '' || $request.category === feature.category;
-			const hasCorrectRegion = $request.region === '';
+			const hasCorrectRegion = $request.region === ''; // || isInRegion($request.region, feature.geom);
 			const hasCorrectQuery = $request.query
 				? feature.label.toLocaleLowerCase().includes($request.query.toLocaleLowerCase())
 				: true;
@@ -43,7 +44,7 @@
 		return features.data;
 	});
 
-	setContext('filterable-map', { request, results });
+	setContext('filterable-map', { request, results, selection });
 </script>
 
 <section>
@@ -56,6 +57,9 @@
 		<h3>Selections</h3>
 		<p>Region: {$request.region}</p>
 		<p>Category: {$request.category}</p>
+		{#if $selection !== undefined}
+			<p>Selection: {$selection.label}</p>
+		{/if}
 	</div>
 </section>
 
