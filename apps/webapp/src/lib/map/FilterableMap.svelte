@@ -63,7 +63,7 @@
 
 		<p>
 			In case you find missing, outdated or false information, help us and <a
-				href="{base}/create/{$selection.id}">add your knowledge here</a
+				href="{base}/map/update/{$selection.id}">add your knowledge here</a
 			>
 		</p>
 	{/if}
