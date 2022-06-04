@@ -11,7 +11,7 @@
  */
 
 // import npm-packages
-import { Pool } from 'pg';
+import {Pool} from 'pg';
 
 // import environment instance
 import environment from '../utils/environment.util';
@@ -20,6 +20,7 @@ import environment from '../utils/environment.util';
 import IDatabase from './db.interface';
 import TranslatableError from "../types/translatable.error";
 import contextWrapper from "../utils/context.wrapper";
+import Category from "../models/category.enum";
 
 /** 
  * @classdesc Class to handle PostGreSQL requests.
@@ -40,6 +41,7 @@ class PostGreSqlDatabase implements IDatabase {
 
     // Feature queries
     private sqlSelectAllFeatures = 'SELECT id, label, category, ST_AsGeoJSON(geom) as "geom", address, service_product as "serviceProduct", opening_hours as "openingHours", we_speak as "weSpeak", specific_offer_for_refugees as "specificOfferForRefugees", from_date as "fromDate", until_date as "untilDate", other, is_deleted as "isDeleted", created_at as "createdAt", created_by as "createdBy", modified_at as "modifiedAt", modified_by as "modifiedBy", is_deleted as "isDeleted" FROM features WHERE is_deleted = FALSE ORDER BY category';
+    private sqlSelectFeaturesByCategory = 'SELECT id, label, category, ST_AsGeoJSON(geom) as "geom", address, service_product as "serviceProduct", opening_hours as "openingHours", we_speak as "weSpeak", specific_offer_for_refugees as "specificOfferForRefugees", from_date as "fromDate", until_date as "untilDate", other, is_deleted as "isDeleted", created_at as "createdAt", created_by as "createdBy", modified_at as "modifiedAt", modified_by as "modifiedBy", is_deleted as "isDeleted" FROM features WHERE category = $1 AND is_deleted = FALSE ORDER BY category';
 
 
     /**
@@ -148,9 +150,11 @@ class PostGreSqlDatabase implements IDatabase {
      * @returns An array of all feature entries.
      * @async
      */
-    public async selectAllFeatures(): Promise<any[]> {
+    public async selectAllFeatures(category: Category = Category.ALL): Promise<any[]> {
         const client = await this.pool.connect();
-        const { rows } = await client.query(this.sqlSelectAllFeatures).finally(() => client.release());
+        const { rows } = await client.query(
+            category === Category.ALL ? this.sqlSelectAllFeatures : this.sqlSelectFeaturesByCategory,
+            category === Category.ALL ? [] : [category]).finally(() => client.release());
         return rows;
     }
 

@@ -20,6 +20,7 @@ import postgresql from "../databases/postgresql.db";
 import featureService from "../services/feature.service";
 import TranslatableError from "../types/translatable.error";
 import FeatureDto from "../models/feature.dto";
+import Category from "../models/category.enum";
 
 /**
  * @classdesc Class to handle feature database requests.
@@ -39,17 +40,22 @@ export class FeatureRepository {
      * @returns A array of all feature instances.
      * @async
      */
-    public async findAll(): Promise<FeatureDto[]> {
-        const features = await this.database.selectAllFeatures();
-        return features ? features.map((feature: any) => {
-            this.checkDatatype(feature);
-            return new FeatureDto(
-                feature.id, feature.label, feature.category, feature.geom, feature.address, feature.serviceProduct, feature.openingHours,
-                feature.weSpeak, feature.specificOfferForRefugees, feature.contactInformation,
-                feature.fromDate, feature.untilDate, feature.other, feature.createdAt, feature.createdBy,
-                feature.modifiedAt, feature.modifiedBy, feature.isDeleted
-            );
-        }) : [];
+    public async findAll(category: Category = Category.ALL): Promise<{features: FeatureDto[], categories: string[]}> {
+        const features = await this.database.selectAllFeatures(category);
+        const categories = new Set<string>();
+        return {
+            features: features ? features.map((feature: any) => {
+                this.checkDatatype(feature);
+                categories.add(feature.category);
+                return new FeatureDto(
+                    feature.id, feature.label, feature.category, JSON.parse(feature.geom), feature.address, feature.serviceProduct, feature.openingHours,
+                    feature.weSpeak, feature.specificOfferForRefugees, feature.contactInformation,
+                    feature.fromDate, feature.untilDate, feature.other, feature.createdAt, feature.createdBy,
+                    feature.modifiedAt, feature.modifiedBy, feature.isDeleted
+                );
+            }): [],
+            categories: [...categories]
+        };
     }
 
     /**

@@ -20,7 +20,6 @@ import express, {NextFunction, Request, Response} from 'express';
 import Feature from './../../../models/feature.model';
 import featureService from '../../../services/feature.service';
 import featureRepository from '../../../repositories/feature.repository';
-import authenticationService from "../../../services/authentication.service";
 import utilsService from "../../../services/utils.service";
 import TranslatableError from "../../../types/translatable.error";
 
@@ -32,9 +31,9 @@ const router = express.Router();
 
 /**
  * @api {get} /feature get features
- * @apiName getusers
+ * @apiName getfeatures
  * @apiVersion 0.0.0
- * @apiGroup User
+ * @apiGroup Feature
  * @apiUse General
  * 
  * @apiSuccess {Object[]} feature list of features
@@ -43,6 +42,30 @@ const router = express.Router();
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const features = await featureRepository.findAll();
+        res.status(200).send(features);
+    } catch(err) {
+        res.status(500).send({
+            error_code: 500,
+            error_msg: err.message,
+            translatable: (err instanceof TranslatableError) ? err.translatable : 'error.unknown_error',
+        });
+    }
+});
+
+/**
+ * @api {get} /feature get features
+ * @apiName getfeaturesbycategory
+ * @apiVersion 0.0.0
+ * @apiGroup Feature
+ * @apiUse General
+ *
+ * @apiSuccess {Object[]} feature list of features
+ * @apiUse FeatureInResponse
+ */
+router.get('/category/:category', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const category = utilsService.getCategoryFromAny(req.params.category);
+        const features = await featureRepository.findAll(category);
         res.status(200).send(features);
     } catch(err) {
         res.status(500).send({

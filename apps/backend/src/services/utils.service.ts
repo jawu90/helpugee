@@ -8,6 +8,8 @@
  */
 
 import TranslatableError from "../types/translatable.error";
+import IBase from "../models/base.interface";
+import Category from "../models/category.enum";
 
 /**
  * @classdesc Class to handle business logic that is used by different entities.
@@ -45,13 +47,26 @@ class UtilsService {
      * Checks if a given obj fulfills the base entity requirements.
      * @param obj Any entity that implements base entity
      */
-    public isBaseInterface(obj: any): boolean {
+    public isBaseInterface(obj: any): obj is IBase {
         return typeof obj.id === "number"
             && typeof obj.isDeleted === "boolean"
             && (obj.createdAt === null || (typeof obj.createdAt === "object" && obj.createdAt instanceof Date))
             && typeof obj.createdBy === "string"
             && (obj.modifiedAt === null || (typeof obj.modifiedAt === "object" && obj.modifiedAt instanceof Date))
             && typeof obj.modifiedBy === "string";
+    }
+
+    /**
+     * @description Parse category from URL parameters.
+     * @param obj Object of any type.
+     * @returns Category as category enum type.
+     * @throws Will throw an error if category is not a instance of the category enum.
+     */
+    public getCategoryFromAny(obj: any): Category {
+        if (typeof obj !== 'string' && !Object.values(Category).includes(obj)) {
+            throw new TranslatableError('error.service.util.category_is_not_url_parameter');
+        }
+        return obj;
     }
 }
 
