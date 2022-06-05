@@ -55,7 +55,7 @@
 
 		const coords: LatLngExpression[] = [];
 		for (const feature of $results ?? []) {
-			const geom = JSON.parse(feature.geom);
+			const { geom } = feature;
 			if (geom.type !== 'Point') {
 				continue;
 			}

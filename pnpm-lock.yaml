@@ -27,6 +27,7 @@ importers:
       http-proxy-middleware: ^2.0.6
       jest: ^28.1.0
       jsonwebtoken: ^8.5.1
+      logform: ^2.4.0
       pg: ^8.7.3
       pg-promise: ^10.11.1
       supertest: ^6.2.3
@@ -45,6 +46,7 @@ importers:
       express-winston: 4.2.0_winston@3.7.2
       http-proxy-middleware: 2.0.6_@types+express@4.17.13
       jsonwebtoken: 8.5.1
+      logform: 2.4.0
       pg: 8.7.3
       pg-promise: 10.11.1
       winston: 3.7.2
@@ -3987,7 +3989,7 @@ packages:
     dev: true
 
   /ms/2.0.0:
-    resolution: {integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=}
+    resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}
     dev: false
 
   /ms/2.1.2:

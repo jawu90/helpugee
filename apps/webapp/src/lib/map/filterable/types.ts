@@ -4,11 +4,13 @@ export type RequestDto = {
 	query: string;
 };
 
+export type Category = string;
+
 export type Feature = {
 	id: number;
 	label: string;
 	category: string;
-	geom: string; // JSON string of GEOM structure (e.g. {type: "Point", coordinates: [<lat>, <lng>]})
+	geom: { type: 'Point'; coordinates: [number, number] };
 	data: {
 		address: string;
 		serviceProduct: string;

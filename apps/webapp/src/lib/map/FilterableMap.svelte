@@ -9,18 +9,20 @@
 	import RegionSelection from './filterable/RegionSelection.svelte';
 	import ResultMap from './filterable/ResultMap.svelte';
 	import TextFilter from './filterable/TextFilter.svelte';
-	import type { Feature, RequestDto } from './filterable/types';
+	import type { Category, Feature, RequestDto } from './filterable/types';
+
+	export let categories: Category[];
 
 	const request = writable<Partial<RequestDto>>({ category: '', region: '', query: '' });
 	const selection = writable<Feature | undefined>();
 
-	async function getFeatures() {
+	async function getFeatures(options: any) {
 		const res = await fetch(`${API_BASE}/feature`);
 		const jsonResponse = await res.json();
 		if (!res.ok) {
 			throw new Error(jsonResponse.error_msg);
 		}
-		const features = jsonResponse as Feature[];
+		const { features } = jsonResponse as { features: Feature[]; categories: Category[] };
 		const result = features.filter((feature) => {
 			const hasCorrectCategory = $request.category === '' || $request.category === feature.category;
 			const hasCorrectRegion = $request.region === ''; // || isInRegion($request.region, feature.geom);
@@ -50,7 +52,7 @@
 
 <section>
 	<RegionSelection />
-	<CategorySelection />
+	<CategorySelection {categories} />
 	<TextFilter />
 	<ResultMap />
 

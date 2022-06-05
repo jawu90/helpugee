@@ -1,5 +1,24 @@
+<script context="module" lang="ts">
+	import type { Load } from '@sveltejs/kit';
+	import type { Category, Feature } from '$lib/map/filterable/types';
+	import { API_BASE } from '$lib/core/api';
+
+	export const load: Load = async ({ fetch }) => {
+		const categoriesUrl = `${API_BASE}/feature/category/all`;
+		const res = await fetch(categoriesUrl);
+		const jsonResponse = await res.json();
+		if (!res.ok) {
+			throw new Error(jsonResponse.error_msg);
+		}
+		const { categories } = jsonResponse as { features: Feature[]; categories: Category[] };
+		return { status: res.status, props: { categories } };
+	};
+</script>
+
 <script lang="ts">
 	import FilterableMap from '$lib/map/FilterableMap.svelte';
+
+	export let categories: Category[];
 </script>
 
 <svelte:head>
@@ -14,7 +33,7 @@
 	you also contribute to helping others with the information provided.
 </p>
 
-<FilterableMap />
+<FilterableMap {categories} />
 
 <style>
 </style>
