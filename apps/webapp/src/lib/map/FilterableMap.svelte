@@ -16,7 +16,7 @@
 	const request = writable<Partial<RequestDto>>({ category: '', region: '', query: '' });
 	const selection = writable<Feature | undefined>();
 
-	async function getFeatures(options: any) {
+	async function getFeatures() {
 		const res = await fetch(`${API_BASE}/feature`);
 		const jsonResponse = await res.json();
 		if (!res.ok) {
