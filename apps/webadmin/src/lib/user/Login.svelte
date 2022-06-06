@@ -9,11 +9,7 @@
 
 	const error = writable<string>();
 
-	async function checkLoginForm(
-		event: SubmitEvent & {
-			currentTarget: EventTarget & HTMLFormElement;
-		}
-	) {
+	const checkLoginForm: svelte.JSX.FormEventHandler<HTMLFormElement> = async (event) => {
 		event.preventDefault();
 		event.stopPropagation();
 
@@ -46,7 +42,7 @@
 		} catch (err) {
 			$error = (err as Error).message;
 		}
-	}
+	};
 </script>
 
 <form on:submit|preventDefault|stopPropagation={checkLoginForm}>

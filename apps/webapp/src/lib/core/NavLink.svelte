@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 
 	export let href: string;
-	export let prefetch: boolean = true;
+	export let prefetch = true;
 </script>
 
 <li class:active={$page.url.pathname === href}>
