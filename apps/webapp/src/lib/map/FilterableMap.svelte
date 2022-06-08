@@ -22,8 +22,11 @@
 		if (!res.ok) {
 			throw new Error(jsonResponse.error_msg);
 		}
-		const { features } = jsonResponse as { features: Feature[]; categories: Category[] };
-		const result = features.filter((feature) => {
+		return jsonResponse as { features: Feature[]; categories: Category[] };
+	}
+
+	const select = (data: { features: Feature[]; categories: Category[] }) => {
+		return data.features.filter((feature) => {
 			const hasCorrectCategory = $request.category === '' || $request.category === feature.category;
 			const hasCorrectRegion = $request.region === ''; // || isInRegion($request.region, feature.geom);
 			const hasCorrectQuery = $request.query
@@ -31,16 +34,17 @@
 				: true;
 			return hasCorrectCategory && hasCorrectRegion && hasCorrectQuery;
 		});
-		return result;
-	}
+	};
 
 	const featureQuery = useQuery(
 		['feature', { category: $request.category, region: $request.region, query: $request.query }],
-		getFeatures
+		getFeatures,
+		{ select }
 	);
 	$: featureQuery.setOptions(
 		['feature', { category: $request.category, region: $request.region, query: $request.query }],
-		getFeatures
+		getFeatures,
+		{ select }
 	);
 
 	const results = derived([featureQuery], ([features]) => {
