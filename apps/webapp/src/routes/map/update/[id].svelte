@@ -27,6 +27,9 @@
 {#if $featureQuery.isLoading}
 	<h2>Update an entry</h2>
 	<p>Loading entry {id}</p>
+{:else if $featureQuery.error}
+	<h2>Error during loading</h2>
+	<p>{$featureQuery.error}</p>
 {:else if $featureQuery.data}
 	<h2>{$featureQuery.data.label}</h2>
 	<p>{$featureQuery.data.data.address}</p>
