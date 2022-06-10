@@ -77,6 +77,29 @@ router.get('/category/:category', async (req: Request, res: Response, next: Next
 });
 
 /**
+ * @api {get} /feature get features
+ * @apiName getfeaturesbycategory
+ * @apiVersion 0.0.0
+ * @apiGroup Feature
+ * @apiUse General
+ *
+ * @apiSuccess {Object[]} feature list of features
+ * @apiUse FeatureInResponse
+ */
+router.get('/categories', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const features = await featureRepository.findAllCategories();
+        res.status(200).send(features);
+    } catch(err) {
+        res.status(500).send({
+            error_code: 500,
+            error_msg: err.message,
+            translatable: (err instanceof TranslatableError) ? err.translatable : 'error.unknown_error',
+        });
+    }
+});
+
+/**
  * @api {get} /feature/:id get feature by id
  * @apiName getfeature
  * @apiVersion 0.0.0
