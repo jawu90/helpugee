@@ -41,6 +41,7 @@ class PostGreSqlDatabase implements IDatabase {
 
     // Feature queries
     private sqlSelectAllFeatures = 'SELECT id, label, category, ST_AsGeoJSON(geom) as "geom", address, service_product as "serviceProduct", opening_hours as "openingHours", we_speak as "weSpeak", specific_offer_for_refugees as "specificOfferForRefugees", from_date as "fromDate", until_date as "untilDate", other, is_deleted as "isDeleted", created_at as "createdAt", created_by as "createdBy", modified_at as "modifiedAt", modified_by as "modifiedBy", is_deleted as "isDeleted" FROM features WHERE is_deleted = FALSE ORDER BY category';
+    private sqlSelectAllFeatureCategories = 'SELECT DISTINCT category FROM features WHERE is_deleted = FALSE ORDER BY category';
     private sqlSelectFeaturesByCategory = 'SELECT id, label, category, ST_AsGeoJSON(geom) as "geom", address, service_product as "serviceProduct", opening_hours as "openingHours", we_speak as "weSpeak", specific_offer_for_refugees as "specificOfferForRefugees", from_date as "fromDate", until_date as "untilDate", other, is_deleted as "isDeleted", created_at as "createdAt", created_by as "createdBy", modified_at as "modifiedAt", modified_by as "modifiedBy", is_deleted as "isDeleted" FROM features WHERE category = $1 AND is_deleted = FALSE ORDER BY category';
 
 
@@ -155,6 +156,17 @@ class PostGreSqlDatabase implements IDatabase {
         const { rows } = await client.query(
             category === Category.ALL ? this.sqlSelectAllFeatures : this.sqlSelectFeaturesByCategory,
             category === Category.ALL ? [] : [category]).finally(() => client.release());
+        return rows;
+    }
+
+    /**
+     * @description Retrieve feature categories.
+     * @returns An array of all feature categories.
+     * @async
+     */
+    public async selectAllFeatureCategories(): Promise<any[]> {
+        const client = await this.pool.connect();
+        const { rows } = await client.query(this.sqlSelectAllFeatureCategories).finally(() => client.release());
         return rows;
     }
 

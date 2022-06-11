@@ -59,6 +59,18 @@ export class FeatureRepository {
     }
 
     /**
+     * @description Retrieve all feature categories from database.
+     * @returns A array of all feature categories.
+     * @async
+     */
+    public async findAllCategories(): Promise<{categories: string[]}> {
+        const categories = await this.database.selectAllFeatureCategories();
+        return {
+            categories: categories ? categories.map( c => c.category ) : []
+        };
+    }
+
+    /**
      * @description Retrieve a feature from database by id.
      * @returns A single feature instances.
      * @async
