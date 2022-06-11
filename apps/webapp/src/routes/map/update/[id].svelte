@@ -6,17 +6,19 @@
 
 	const id = $page.params.id;
 
-	async function getFeature() {
-		const res = await fetch(`${API_BASE}/feature`);
-		const jsonResponse = await res.json();
-		if (!res.ok) {
-			throw new Error(jsonResponse.error_msg);
-		}
-		return jsonResponse as Feature;
-	}
+	const getFeature = (id: string) => {
+		return async () => {
+			const res = await fetch(`${API_BASE}/feature/${id}`);
+			const jsonResponse = await res.json();
+			if (!res.ok) {
+				throw new Error(jsonResponse.error_msg);
+			}
+			return jsonResponse as Feature;
+		};
+	};
 
-	const featureQuery = useQuery(['feature', { id }], getFeature);
-	$: featureQuery.setOptions(['feature', { id }], getFeature);
+	const featureQuery = useQuery(['feature', { id }], getFeature(id));
+	$: featureQuery.setOptions(['feature', { id }], getFeature(id));
 </script>
 
 <svelte:head>
@@ -32,7 +34,7 @@
 	<p>{$featureQuery.error}</p>
 {:else if $featureQuery.data}
 	<h2>{$featureQuery.data.label}</h2>
-	<p>{$featureQuery.data.data.address}</p>
+	<pre>{JSON.stringify($featureQuery.data, null, 2)}</pre>
 {/if}
 
 <style>
