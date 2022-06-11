@@ -4,7 +4,7 @@
 	import { API_BASE } from '$lib/core/api';
 
 	export const load: Load = async ({ fetch }) => {
-		const categoriesUrl = `${API_BASE}/feature/category/all`;
+		const categoriesUrl = `${API_BASE}/feature/categories`;
 		const res = await fetch(categoriesUrl);
 		const jsonResponse = await res.json();
 		if (!res.ok) {
