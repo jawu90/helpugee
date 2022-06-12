@@ -6,12 +6,14 @@ RUN corepack enable
 RUN corepack prepare pnpm@7.0.1 --activate
 WORKDIR /app-cache
 COPY .npmrc* pnpm-lock.yaml* pnpm-workspace.yaml ./
-RUN pnpm fetch
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
+    pnpm fetch
 COPY ./docker/entrypoint.sh /docker/
 
 ARG APP_NAME
 COPY ./apps/${APP_NAME}/package.json ./apps/${APP_NAME}/
-RUN pnpm install --offline --frozen-lockfile --ignore-scripts
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
+    pnpm install --offline --frozen-lockfile --ignore-scripts
 WORKDIR /app
 COPY . ./
 CMD [ "pnpm", "--filter", "${APP_NAME}", "run", "dev" ]
