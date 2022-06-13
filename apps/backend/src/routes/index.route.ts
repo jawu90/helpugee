@@ -20,7 +20,9 @@ export default function createAdminRoute(): express.RequestHandler {
     return router;
   }
 
-  console.log(`Serving static paths for webapp and webadmin`);
+  console.log(
+    `Serving static paths for webapp ${environment.frontendWebAppPath} and webadmin ${environment.frontendAdminAppPath}`
+  );
   router.use("/admin", express.static(environment.frontendAdminAppPath));
   router.use(express.static(environment.frontendWebAppPath));
 

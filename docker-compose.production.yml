@@ -37,6 +37,7 @@ services:
     build:
       args:
         APP_NAME: "backend"
+        VITE_PUBLIC_API_URL: "/api/v1"
       context: .
       dockerfile: ./docker/Dockerfile.prod
       target: runner
@@ -56,5 +57,6 @@ services:
       FRONTEND_WEB_DEV_URL: "http://helpugee-webapp:3000"
       FRONTEND_WEB_STATIC_PATH: "/app/apps/webapp/build"
       NODE_ENV: "production"
+      VITE_PUBLIC_API_URL: "/api/v1"
     ports:
       - "0.0.0.0:${HELPUGEE_BACKEND_PORT}:${HELPUGEE_BACKEND_PORT}"

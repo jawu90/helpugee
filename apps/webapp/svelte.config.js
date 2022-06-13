@@ -12,6 +12,7 @@ const config = {
 		prerender: {
 			default: true
 		},
+		trailingSlash: 'always',
 		vite: {
 			server: {
 				hmr: {

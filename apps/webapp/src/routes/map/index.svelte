@@ -2,8 +2,12 @@
 	import type { Load } from '@sveltejs/kit';
 	import type { Category, Feature } from '$lib/map/filterable/types';
 	import { API_BASE } from '$lib/core/api';
+	import { prerendering } from '$app/env';
 
 	export const load: Load = async ({ fetch }) => {
+		if (prerendering) {
+			return { status: 200, props: { categories: [] as Category[] } };
+		}
 		const categoriesUrl = `${API_BASE}/feature/categories`;
 		const res = await fetch(categoriesUrl);
 		const jsonResponse = await res.json();

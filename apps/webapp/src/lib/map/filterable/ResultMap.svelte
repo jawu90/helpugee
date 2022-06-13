@@ -16,6 +16,7 @@
 	import type { Feature } from './types';
 	import type { LatLngExpression } from 'leaflet';
 	import type { Readable, Writable } from 'svelte/store';
+	import { base } from '$app/paths';
 
 	let map: L.Map | null = null;
 	const mapId = `result-map-${++id}`;
@@ -61,7 +62,13 @@
 			}
 
 			const latlng = geom.coordinates;
-			const marker = Leaflet.marker(latlng).addTo(map);
+			const marker = Leaflet.marker(latlng, {
+				icon: Leaflet.icon({
+					iconUrl: `${base}/map/marker-icon.png`,
+					iconRetinaUrl: `${base}/map/marker-icon-2x.png`,
+					shadowUrl: `${base}/map/marker-shadow.png`
+				})
+			}).addTo(map);
 			marker.on('click', () => {
 				$selection = feature;
 			});
