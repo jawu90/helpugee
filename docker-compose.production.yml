@@ -1,3 +1,9 @@
+networks:
+  helpugee:
+    external: false
+  web:
+    external: true
+
 volumes:
   dev-database:
   node-cache:
@@ -16,6 +22,8 @@ services:
       POSTGRES_PORT: "${POSTGRES_PORT}"
     volumes:
       - dev-database:/var/lib/postgresql/data
+    networks:
+      - helpugee
 
   helpugee-db-reset:
     depends_on:
@@ -32,6 +40,8 @@ services:
       RESET_DB: "${RESET_DB}"
     volumes:
       - ./database:/app
+    networks:
+      - helpugee
 
   helpugee-backend:
     build:
@@ -60,3 +70,13 @@ services:
       VITE_PUBLIC_API_URL: "/api/v1"
     ports:
       - "0.0.0.0:${HELPUGEE_BACKEND_PORT}:${HELPUGEE_BACKEND_PORT}"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.schadensmelder-${ENV_NAME}.rule=Host(`${SCHADENSMELDER_HOST}`)"
+      - "traefik.http.routers.schadensmelder-${ENV_NAME}.entrypoints=websecure"
+      - "traefik.http.routers.schadensmelder-${ENV_NAME}.tls.certresolver=leresolver"
+      - "traefik.http.services.schadensmelder-${ENV_NAME}.loadbalancer.server.port=80"
+    networks:
+      - helpugee
+      - web
