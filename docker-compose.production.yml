@@ -76,7 +76,7 @@ services:
       - "traefik.http.routers.helpugee.rule=Host(`${HELPUGEE_HOST}`)"
       - "traefik.http.routers.helpugee.entrypoints=websecure"
       - "traefik.http.routers.helpugee.tls.certresolver=leresolver"
-      - "traefik.http.services.helpugee.loadbalancer.server.port=80"
+      - "traefik.http.services.helpugee.loadbalancer.server.port=${HELPUGEE_BACKEND_PORT}"
     networks:
       - helpugee
       - web
