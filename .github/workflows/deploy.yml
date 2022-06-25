@@ -1,0 +1,51 @@
+name: Deploy on server
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/deployment.key
+          chmod 600 ~/.ssh/deployment.key
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          cat >>~/.ssh/config <<END
+          Host deployment
+            HostName $SSH_HOST
+            USER $SSH_USER
+            IdentityFile ~/.ssh/deployment.key
+            UserKnownHostsFile ~/.ssh/known_hosts
+            StrictHostKeyChecking yes
+          END
+        env:
+          SSH_USER: ${{ secrets.SSH_USERNAME }}
+          SSH_HOST: ${{ secrets.SSH_HOSTNAME }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+          SSH_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
+      - name: Prepare .env file
+        run: |
+          cat > .env <<END
+          HELPUGEE_HOST=${{ secrets.HELPUGEE_HOST }}
+          HELPUGEE_BACKEND_PORT=${{ secrets.HELPUGEE_BACKEND_PORT }}
+          HELPUGEE_BACKEND_HOST=${{ secrets.HELPUGEE_BACKEND_HOST }}
+          POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+          POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
+          POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
+          ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }}
+          NODE_ENV=${{ secrets.NODE_ENV }}
+          END
+      - name: Ensure server has directory
+        run: ssh deployment "mkdir -p '/home/deploy-helpugee/helpugee'"
+      - name: Transfer necessary artifacts to server
+        run: scp ".env" "docker/server-setup/deploy-on-server.sh" "deployment:/home/deploy-helpugee/helpugee"
+      - name: Run deploy script
+        run: ssh deployment "bash /home/deploy-helpugee/helpugee/deploy-on-server.sh"
